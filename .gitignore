@@ -1,0 +1,29 @@
+### node ###
+node_modules
+logs
+*.log
+npm-dubug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+### bower ###
+bower_components
+.bower-cache
+.bower-registry
+.bower-tmp
+
+### sass ###
+.sass-cache/
+*.css.map
+
+### uncompiled sass ###
+*.css
+
+### directories ###
+dist
+!src/client/static/img/profile/default.jpg
+src/client/static/img/*
+src/server/env.js

@@ -1,0 +1,10 @@
+@font-face {
+	font-family: 'andada';
+	src: url('../fonts/Andada-Regular.otf') format('opentype');
+	font-weight: normal;
+    font-style: normal;
+}
+
+html, body {
+    font-family: andada;
+}

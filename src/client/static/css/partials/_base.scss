@@ -1,0 +1,22 @@
+$light-gray: #C0C0C0;
+$gray: #666666;
+
+// Media Queries
+
+@mixin sm {
+  @media only screen and (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media only screen and (min-width: 992px) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media only screen and (min-width: 1200px) {
+    @content;
+  }
+}

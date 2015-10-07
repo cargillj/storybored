@@ -1,0 +1,61 @@
+// Partials
+@import 'partials/base';
+
+body {
+	background-color: black;
+	color: white;
+}
+
+header {
+	background-color: black;
+	border-bottom: 1px solid white;
+	#logo {
+		a {
+			color: #337AB7;
+		}
+	    span {
+	        color: $light-gray;
+		}
+	}
+	.btn {
+		background-color: black;
+		color: white;
+	}
+	.btn:hover {
+		color: $gray;
+		background-color: white;
+	}
+	.dropdown-menu {
+		.dropdown-header, a {
+			color: white;
+		}
+		background-color: black;
+		border: 1px solid white;
+		border-radius: 0px;
+	}
+}
+
+a, a:hover {
+	color: white;
+}
+
+input {
+	color: black;
+}
+
+.modal-content {
+	color: black;
+	a:hover {
+		color: black;
+	}
+}
+
+.panel {
+	font-family: arial;
+	.panel-heading {
+		font-family: 'andada';
+		color: white;
+		background-color: #337AB7;
+	}
+	background-color: black;
+}

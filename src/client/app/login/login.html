@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="col-xs-12">
+    <h4>Login</h4>
+  </div>
+  <form name="login" id="login" role="form">
+    <div class="col-xs-6">
+      <div class="alert alert-danger" role="alert" ng-show="vm.error"><strong>Sorry,</strong> the username or password you entered is incorrect.</div>
+      <div class="form-group" ng-class="{ 'has-error': login.username.$dirty && login.username.$error.required }">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" name="username" id="username" placeholder="Username" ng-model="vm.username" required>
+        <span ng-show="login.username.$dirty && login.username.$error.required" class="help-block">Username is required</span>
+      </div>
+      <div class="form-group" ng-class="{ 'has-error': login.password.$dirty && login.password.$error.required }">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" name="password" id="password" placeholder="Password" ng-model="vm.password" required>
+        <span ng-show="login.password.$dirty && login.password.$error.required" class="help-block">Password is required</span>
+      </div>
+      <p class="help-block">Not a member? <a href="" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">Register</a></p>
+      <button type="submit" ng-disabled="login.$invalid || dataLoading" class="btn btn-primary" ng-click="vm.login()">Login</button>
+    </div>
+  </form>
+</div>

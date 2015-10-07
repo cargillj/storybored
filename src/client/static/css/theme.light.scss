@@ -1,0 +1,35 @@
+// Partials
+@import 'partials/base';
+
+body {
+	background-color: white;
+	color: black;
+}
+
+header {
+	background-color: white;
+	box-shadow: 1px 1px 5px black;
+	#logo {
+	    span {
+	        color: $gray;
+		}
+	}
+	.btn {
+		background-color: white;
+		color: black;
+	}
+	.btn:hover {
+		color: $light-gray;
+		background-color: black;
+	}
+	.dropdown-menu {
+		li, a, .dropdown-header {
+			color: black;
+		}
+		background-color: white;
+	}
+}
+
+a, a:hover {
+	color: black;
+}

@@ -1,0 +1,163 @@
+<div class="user jumbotron">
+  		<div class="container">
+    		<div class="row">
+    			<div class="col-xs-8">
+    				<div class="media">
+						<div class="media-left">
+						  	<img class="media-object img-rounded" ng-src="{{globals.currentUser.profile_img}}">
+						</div>
+						<div class="media-body">
+							<h4 class="media-heading">{{ globals.currentUser.username }} <em>aka</em> {{ globals.currentUser.first_name }} {{ globals.currentUser.last_name }} <span class="label label-success">{{ globals.currentUser.role }}</span></h4><hr>
+						    <p>A Bore since {{ globals.currentUser.since | date:'longDate'}}</p>
+
+						</div>
+					</div>
+    			</div>
+    		</div>
+  		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12">
+			<h2>User Actions</h2>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+				    <h3 class="panel-title">Update Profile Pic</h3>
+				</div>
+				<form name="profileForm">
+					<div class="panel-body">
+						<div class="alert alert-success" role="alert" ng-show="vm.profileFormSuccess">Your profile picture has been updated</div>
+						<div class="alert alert-danger" role="alert" ng-show="vm.profileFormError"><strong>Sorry,</strong> there was an error updating your profile picture.</div>
+						<div class="btn btn-primary" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="4MB" ngf-resize="{width: 75, height: 75}">Select Profile Image</div>
+						<button type="submit" ng-click="vm.onFileSubmit(file)">submit</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+				    <h3 class="panel-title">Change Info</h3>
+				</div>
+				<div class="panel-body">
+					<form name="infoForm" id="infoForm">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="alert alert-success" role="alert" ng-show="vm.infoFormSuccess">Your info has been updated</div>
+								<div class="alert alert-danger" role="alert" ng-show="vm.infoFormError"><strong>Sorry,</strong> there was an error updating your info.</div>
+							</div>
+						</div>
+						<div class="row">
+	    					<div class="col-xs-6">
+	    						<div class="form-group">
+		    						<label for="first_name">First Name</label>
+		    						<input type="name" class="form-control" id="first_name" placeholder="{{ globals.currentUser.first_name }}" ng-model="info.first_name" required>
+		    					</div>
+	    					</div>
+	    					<div class="col-xs-6">
+	    						<div class="form-group">
+		    						<label for="last_name">Last Name</label>
+		    						<input type="name" class="form-control" id="last_name" placeholder="{{ globals.currentUser.last_name }}" ng-model="info.last_name" required>
+		    					</div>
+	    					</div>
+	  					</div>
+	  					<div class="row">
+	    					<div class="col-xs-12">
+	    						<div class="form-group" ng-class="{'has-error': registerForm.email.$invalid && registerForm.email.$dirty}">
+		    						<label for="email">Email address</label>
+		    						<input type="email" class="form-control" name="email" id="email" placeholder="{{ globals.currentUser.email }}" ng-model="info.email" required>
+		    					</div>
+	    					</div>
+	    				</div>
+	    				<div class="row">
+	    					<div class="col-xs-12">
+	    						<button type="button" class="btn btn-primary" ng-click="vm.changeInfo(info)">Submit</button>
+	    					</div>
+	    				</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+				    <h3 class="panel-title">Change User Credentials</h3>
+				</div>
+				<div class="panel-body">
+					<form name="usernameForm" novalidate>
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="alert alert-success" role="alert" ng-show="vm.usernameFormSuccess">Your username has been updated</div>
+								<div class="alert alert-danger" role="alert" ng-show="vm.usernameFormError"><strong>Sorry,</strong> there was an error updating your username.</div>
+							</div>
+						</div>
+						<div class="row">
+	  					<div class="col-xs-12">
+	  						<div class="form-group">
+	    						<label for="first_name">Username</label>
+	    						<div class="input-group">
+							   		<input type="name" class="form-control" id="first_name" placeholder="{{ globals.currentUser.username }}" ng-model="username" ng-minlength="3" ng-required="true" required />
+							      	<span class="input-group-btn">
+							        	<button class="btn btn-primary" type="button" ng-click="vm.changeUsername(username, usernameForm.$valid)" ng-disabled="usernameForm.$invalid">Submit</button>
+							      	</span>
+							    </div>
+	    					</div>
+	  					</div>
+	  				</div>
+	  			</form>
+  				<div class="row">
+  					<div class="col-xs-12"><hr></div>
+  				</div>
+  				<form name="passwordForm">
+  					<div class="row">
+							<div class="col-xs-12">
+								<div class="alert alert-success" role="alert" ng-show="vm.passwordFormSuccess">Your password has been updated</div>
+								<div class="alert alert-danger" role="alert" ng-show="vm.passwordFormError"><strong>Sorry,</strong> there was an error updating your password.</div>
+							</div>
+						</div>
+	  				<div class="row">
+	  					<div class="col-xs-5">
+	  						<div class="form-group">
+							    <label for="current_password">Old Password</label>
+							    <input type="password" class="form-control" id="current_password" placeholder="Password" ng-model="cred2.old_password" ng-required="true" required>
+								</div>
+							</div>
+	  					<div class="col-xs-7">
+	  						<div class="form-group">
+	    						<label for="new_password">New Password</label>
+	    						<div class="input-group">
+							   		<input type="password" class="form-control" id="new_password" placeholder="New Password" ng-model="cred2.new_password" ng-required="true" required>
+							      	<span class="input-group-btn">
+							        	<button class="btn btn-primary" type="button" ng-click="vm.changePassword(cred2)" ng-disabled="passwordForm.$invalid">Submit</button>
+							      	</span>
+							    </div>
+	    					</div>
+	  					</div>
+	    			</div>
+	    		</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<button type="button" class="btn btn-danger" ng-click="vm.deleteUser()" ng-confirm-confirm="Are you sure, {{ user.username }}?">Delete User</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<h3>Recent Comments</h3>
+			<blockquote>
+				<p>I haven't even implemented articles yet!</p>
+				<footer><cite>Damon Talks Mars</cite></footer>
+			</blockquote>
+		</div>
+	</div>
+</div>

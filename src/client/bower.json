@@ -1,0 +1,32 @@
+{
+  "name": "storybored",
+  "version": "0.0.0",
+  "authors": [
+    "John Cargill <cargillj@onid.oregonstate.edu>"
+  ],
+  "main": "index.html",
+  "moduleType": [],
+  "keywords": [
+    "storybored"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-cookies": "~1.4.7",
+    "angular-route": "~1.4.7",
+    "bootstrap": "~3.3.5",
+    "ng-file-upload": "~9.0.6",
+    "angular": "~1.4.7",
+    "jquery": "~2.1.4",
+    "font-awesome": "~4.4.0"
+  },
+  "description": "",
+  "homepage": "",
+  "private": true
+}
