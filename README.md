@@ -12,7 +12,7 @@ Setup is very simple for those who would like to contribute.
 
 - [Create a PostgreSQL Database](#create-a-postgresql-database-)
 - [Build the site distribution](#build-the-site-distribution-)
-- [Configure the Server](#configure-the-server-)
+- [Configure the Server](#configure-the-server)
 - [Run the Server](#run-the-server-)
 
 ### Create a PostgreSQL Database [](#create-postgres-database) 
