@@ -18,7 +18,7 @@ Setup is very simple for those who would like to contribute.
 ### Create a PostgreSQL Database [](#create-postgres-database) 
 Storybored stores articles, user info, and comments in PostgreSQL tables. To work on StoryBored you will need to download a distribution of [postgreSQL](http://www.postgresql.org/download/) appropriate to your system. Secondly, you will need to [start a database](http://www.postgresql.org/docs/9.1/static/server-start.html) server with your distribution, and lastly, [create a database](http://www.postgresql.org/docs/9.1/static/server-start.html). As you set up your database take note to remember the hostname and port your database is being served from as we will need those later when setting up environment variables for the development server.
 
-Next, we create the StoryBored specific tables in the database using [these queries](docs/db.sql;).
+Next, we create the StoryBored specific tables in the database using [these queries](docs/db.md).
 
 ### Build the Site Distribution [](#build-distribution)
 Get the source code:
