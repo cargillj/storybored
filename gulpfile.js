@@ -85,8 +85,12 @@ gulp.task('fonts', function() {
 gulp.task('index', function() {
   gulp.src(paths.index)
     .pipe(htmlReplace({
-      'css': ['css/bootstrap.min.css', 'css/font-awesome.min.css', 'css/style.css', 'css/theme.light.css'],
-      'js': ['scripts/vendor.min.js', 'scripts/storybored.min.js']
+      css: ['css/bootstrap.min.css', 'css/font-awesome.min.css', 'css/style.css'],
+      js: ['scripts/vendor.min.js', 'scripts/storybored.min.js'],
+      theme: {
+        src: 'css/theme.light.css',
+        tpl: '<link href="%s" rel="stylesheet" id="light-theme"></link>'
+      }
     }))
     .pipe(gulp.dest(bases.dist));
 });

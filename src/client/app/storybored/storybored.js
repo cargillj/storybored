@@ -43,7 +43,7 @@
 			newTheme.setAttribute("rel", "stylesheet");
 			newTheme.setAttribute("type", "text/css");
 			console.log("using "+style+" theme");
-			newTheme.setAttribute("href", "static/css/theme."+style+".css");
+			newTheme.setAttribute("href", "css/theme."+style+".css");
 			newTheme.setAttribute("id", style+"-theme");
 			theme.replaceWith(newTheme);
 			localStorage.setItem("theme", style);
