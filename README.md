@@ -54,7 +54,7 @@ The server still needs to be supplied the connection string to your database. Cr
 ```javascript
 // env.js
 
-process.env['CONNECTION_STRING'] = "pg://your_server:port/database_name";
+process.env['CONNECTION_STRING'] = "pg://username:password@host:port/database_name";
 ```
 
 ### Run the Server [](#run-server)
