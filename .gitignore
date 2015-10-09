@@ -25,5 +25,6 @@ bower_components
 ### directories ###
 dist
 !src/client/static/img/profile/default.jpg
+!src/client/static/img/storybored.jpg
 src/client/static/img/*
 src/server/env.js
