@@ -7,6 +7,7 @@
     .module('sbApp', [
       'ngRoute',
       'ngCookies',
-      'ngFileUpload'
+      'ngFileUpload',
+      'ngAnimate'
     ]);
 })();

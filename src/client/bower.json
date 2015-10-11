@@ -24,7 +24,8 @@
     "ng-file-upload": "~9.0.6",
     "angular": "~1.4.7",
     "jquery": "~2.1.4",
-    "font-awesome": "~4.4.0"
+    "font-awesome": "~4.4.0",
+    "angular-animate": "~1.4.7"
   },
   "description": "",
   "homepage": "",

@@ -148,3 +148,13 @@ input[type="file"] {
 	font-family: arial;
 	text-transform: uppercase;
 }
+
+.page.ng-enter {
+	opacity: 0;
+	@include transition(0.5s linear all);
+}
+
+.page.ng-enter.ng-enter-active {
+	opacity: 1;
+	@include transition(0.5s linear all);
+}
