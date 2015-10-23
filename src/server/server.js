@@ -1,10 +1,13 @@
 // Set up
 require('./env.js');
-var connectionString = process.env['CONNECTION_STRING'];
+var connectionString = process.env['CONNECTION_STRING']
+  , jwtSecret = process.env['JWT_SECRET'];
 
 var express = require('express')
 	, site = require('./routes/site')
 	, user = require('./routes/user')
+  , article = require('./routes/article')
+  , cloudinary = require('./routes/cloudinary')
 	, router = express.Router()
 	, bodyParser = require('body-parser')
 	, multer = require('multer')
@@ -19,10 +22,17 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use('/', express.static(__dirname + '../../../dist/'));
+app.use('/dashboard', express.static(__dirname + '../../../dist/'));
+app.use('/articles/*', express.static(__dirname + '../../../dist/'));
+app.use('/login', express.static(__dirname + '../../../dist/'));
+
 // Log requests
 app.use(morgan('dev'));
 // protect /api routes with JWT
-app.use('/api', expressJwt({secret: "secret"}));
+app.use('/api', expressJwt({secret: jwtSecret})
+  .unless({
+    path: [/\/api\/public\/\w*.*/]
+  }));
 
 app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
@@ -45,6 +55,15 @@ app.put('/api/users/info/', upload.array(), user.updateInfo);
 app.put('/api/users/username/', upload.array(), user.updateUsername);
 app.put('/api/users/password/', upload.array(), user.updatePassword);
 app.put('/api/users/profile/:user_id', user.updateProfile);
+
+// Article API
+app.post('/api/articles', upload.array(), article.create);
+app.get('/api/public/articles/tints', article.getTints);
+app.get('/api/public/articles/:article_id', article.getById);
+app.get('/api/public/articles/recent/:n', article.getRecent);
+
+// Cloudinary API
+app.post('/api/cloudinary/:folder', cloudinary.upload);
 
 // Listen (start app with 'node server.js')
 app.listen(3000);

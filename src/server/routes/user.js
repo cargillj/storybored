@@ -87,7 +87,7 @@ exports.authenticate = function(req, res) {
           client.query("SELECT user_id as user_id, username as username, first_name as first_name, last_name as last_name, since as since, email as email FROM sb.users WHERE username=$1;", [data], function(row) {
             results.user = row;
           });
-          results.token = jwt.sign(results, "secret", { expiresInMinutes: 60*5 });
+          results.token = jwt.sign(results, "secret", { expiresIn: 60*60*5 });
           results.success = true;
         } else {
           results.success = false;
@@ -226,7 +226,6 @@ exports.updatePassword = function(req, res) {
 }
 
 // TODO: limit file sizes
-// TODO: store profiles on the server
 
 // Update profile image
 exports.updateProfile = function(req, res) {
