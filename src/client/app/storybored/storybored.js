@@ -9,8 +9,8 @@
 		.run(run)
 		.config(interceptor);
 
-	indexController.$inject = ['$scope', '$cookies', '$location', 'AuthenticationService'];
-	function indexController($scope, $cookies, $location, AuthenticationService) {
+	indexController.$inject = ['$scope', '$cookies', '$window', '$location', 'AuthenticationService'];
+	function indexController($scope, $cookies, $window, $location, AuthenticationService) {
 		// Check saved theme
 		switch(localStorage.theme) {
 			case null:
@@ -25,6 +25,11 @@
 				break;
 		}
 
+		$scope.logout = function() {
+      AuthenticationService.ClearCredentials();
+      $location.path('/login');
+    }
+
 		$scope.toggleTheme = function() {
 			var lightTheme = $("#light-theme");
 			var darkTheme = $("#dark-theme");
@@ -34,6 +39,10 @@
 			}
 			else {
 				setTheme(lightTheme, "dark");
+			}
+			// reload window to change disqus theme
+			if($location.path().substring(0, $location.path().lastIndexOf('/')) == '/articles') {
+				$window.location.reload();
 			}
 		};
 
@@ -54,12 +63,6 @@
 				$("#light-switch span").text('Turn lights off');
 			}
 		}
-
-		$scope.logout = function() {
-			AuthenticationService.ClearCredentials();
-			$location.path('/');
-			console.log("logging out");
-		}
 	}
 })();
 
@@ -68,11 +71,13 @@ function run($rootScope, $location, $cookies, $http) {
 	// keep user logged in after page refresh
 	if($cookies.get('globals')) {
 		$rootScope.globals = JSON.parse($cookies.get('globals')) || {};
-	} else $rootScope.globals = {};
+	} else {
+		$rootScope.globals = {};
+	}
 
 	$rootScope.$on('$locationChangeStart', function (event, next, current) {
 		// redirect to front page if not logged in and trying to access some thing restricted
-		var restrictedPage = $.inArray($location.path(), ['/']) === -1;
+		var restrictedPage = $.inArray($location.path(), ['/dashboard']) != -1;
 		var loggedIn = $rootScope.globals.currentUser;
 		if (restrictedPage && !loggedIn) {
 			console.log("Restricted page, log in please");

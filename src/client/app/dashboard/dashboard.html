@@ -9,155 +9,322 @@
 						<div class="media-body">
 							<h4 class="media-heading">{{ globals.currentUser.username }} <em>aka</em> {{ globals.currentUser.first_name }} {{ globals.currentUser.last_name }} <span class="label label-success">{{ globals.currentUser.role }}</span></h4><hr>
 						    <p>A Bore since {{ globals.currentUser.since | date:'longDate'}}</p>
-
 						</div>
 					</div>
+    			</div>
+    			<div class="col-xs-4">
+    				<button class="btn btn-danger" ng-click="vm.logout()">Logout</button>
     			</div>
     		</div>
   		</div>
 	</div>
 </div>
 <div class="container">
-	<div class="row">
-		<div class="col-xs-12">
-			<h2>User Actions</h2>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-6">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-				    <h3 class="panel-title">Update Profile Pic</h3>
-				</div>
-				<form name="profileForm">
-					<div class="panel-body">
-						<div class="alert alert-success" role="alert" ng-show="vm.profileFormSuccess">Your profile picture has been updated</div>
-						<div class="alert alert-danger" role="alert" ng-show="vm.profileFormError"><strong>Sorry,</strong> there was an error updating your profile picture.</div>
-						<div class="btn btn-primary" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="4MB" ngf-resize="{width: 75, height: 75}">Select Profile Image</div>
-						<button type="submit" ng-click="vm.onFileSubmit(file)">submit</button>
+	<!-- nav tabs -->
+	<uib-tabset>
+		<uib-tab>
+			<uib-tab-heading><i class='fa fa-cog'></i> User Actions</uib-tab-heading>
+			<div data-ng-controller="UserFormController as vm">
+				<div class="row">
+					<div class="col-xs-12">
+						<h2>User Actions</h2>
 					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-6">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-				    <h3 class="panel-title">Change Info</h3>
 				</div>
-				<div class="panel-body">
-					<form name="infoForm" id="infoForm">
-						<div class="row">
-							<div class="col-xs-12">
-								<div class="alert alert-success" role="alert" ng-show="vm.infoFormSuccess">Your info has been updated</div>
-								<div class="alert alert-danger" role="alert" ng-show="vm.infoFormError"><strong>Sorry,</strong> there was an error updating your info.</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+							    <h3 class="panel-title">Update Profile Pic</h3>
 							</div>
-						</div>
-						<div class="row">
-	    					<div class="col-xs-6">
-	    						<div class="form-group">
-		    						<label for="first_name">First Name</label>
-		    						<input type="name" class="form-control" id="first_name" placeholder="{{ globals.currentUser.first_name }}" ng-model="info.first_name" required>
-		    					</div>
-	    					</div>
-	    					<div class="col-xs-6">
-	    						<div class="form-group">
-		    						<label for="last_name">Last Name</label>
-		    						<input type="name" class="form-control" id="last_name" placeholder="{{ globals.currentUser.last_name }}" ng-model="info.last_name" required>
-		    					</div>
-	    					</div>
-	  					</div>
-	  					<div class="row">
-	    					<div class="col-xs-12">
-	    						<div class="form-group" ng-class="{'has-error': registerForm.email.$invalid && registerForm.email.$dirty}">
-		    						<label for="email">Email address</label>
-		    						<input type="email" class="form-control" name="email" id="email" placeholder="{{ globals.currentUser.email }}" ng-model="info.email" required>
-		    					</div>
-	    					</div>
-	    				</div>
-	    				<div class="row">
-	    					<div class="col-xs-12">
-	    						<button type="button" class="btn btn-primary" ng-click="vm.changeInfo(info)">Submit</button>
-	    					</div>
-	    				</div>
-					</form>
-				</div>
-			</div>
-		</div>
-		<div class="col-xs-6">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-				    <h3 class="panel-title">Change User Credentials</h3>
-				</div>
-				<div class="panel-body">
-					<form name="usernameForm" novalidate>
-						<div class="row">
-							<div class="col-xs-12">
-								<div class="alert alert-success" role="alert" ng-show="vm.usernameFormSuccess">Your username has been updated</div>
-								<div class="alert alert-danger" role="alert" ng-show="vm.usernameFormError"><strong>Sorry,</strong> there was an error updating your username.</div>
-							</div>
-						</div>
-						<div class="row">
-	  					<div class="col-xs-12">
-	  						<div class="form-group">
-	    						<label for="first_name">Username</label>
-	    						<div class="input-group">
-							   		<input type="name" class="form-control" id="first_name" placeholder="{{ globals.currentUser.username }}" ng-model="username" ng-minlength="3" ng-required="true" required />
-							      	<span class="input-group-btn">
-							        	<button class="btn btn-primary" type="button" ng-click="vm.changeUsername(username, usernameForm.$valid)" ng-disabled="usernameForm.$invalid">Submit</button>
-							      	</span>
-							    </div>
-	    					</div>
-	  					</div>
-	  				</div>
-	  			</form>
-  				<div class="row">
-  					<div class="col-xs-12"><hr></div>
-  				</div>
-  				<form name="passwordForm">
-  					<div class="row">
-							<div class="col-xs-12">
-								<div class="alert alert-success" role="alert" ng-show="vm.passwordFormSuccess">Your password has been updated</div>
-								<div class="alert alert-danger" role="alert" ng-show="vm.passwordFormError"><strong>Sorry,</strong> there was an error updating your password.</div>
-							</div>
-						</div>
-	  				<div class="row">
-	  					<div class="col-xs-5">
-	  						<div class="form-group">
-							    <label for="current_password">Old Password</label>
-							    <input type="password" class="form-control" id="current_password" placeholder="Password" ng-model="cred2.old_password" ng-required="true" required>
+							<form name="profileForm">
+								<div class="panel-body">
+									<div class="alert alert-success" role="alert" ng-show="vm.profileFormSuccess">Your profile picture has been updated</div>
+									<div class="alert alert-danger" role="alert" ng-show="vm.profileFormError"><strong>Sorry,</strong> there was an error updating your profile picture.</div>
+									<div class="btn btn-primary" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="4MB" ngf-resize="{width: 75, height: 75}">Select Profile Image</div>
+									<button type="submit" ng-click="vm.onFileSubmit(file)">submit</button>
 								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+							    <h3 class="panel-title">Change Info</h3>
 							</div>
-	  					<div class="col-xs-7">
-	  						<div class="form-group">
-	    						<label for="new_password">New Password</label>
-	    						<div class="input-group">
-							   		<input type="password" class="form-control" id="new_password" placeholder="New Password" ng-model="cred2.new_password" ng-required="true" required>
-							      	<span class="input-group-btn">
-							        	<button class="btn btn-primary" type="button" ng-click="vm.changePassword(cred2)" ng-disabled="passwordForm.$invalid">Submit</button>
-							      	</span>
-							    </div>
-	    					</div>
-	  					</div>
-	    			</div>
-	    		</form>
+							<div class="panel-body">
+								<form name="infoForm" id="infoForm">
+									<div class="row">
+										<div class="col-xs-12">
+											<div class="alert alert-success" role="alert" ng-show="vm.infoFormSuccess">Your info has been updated</div>
+											<div class="alert alert-danger" role="alert" ng-show="vm.infoFormError"><strong>Sorry,</strong> there was an error updating your info.</div>
+										</div>
+									</div>
+									<div class="row">
+				    					<div class="col-xs-6">
+				    						<div class="form-group">
+					    						<label for="first_name">First Name</label>
+					    						<input type="name" class="form-control" id="first_name" placeholder="{{ globals.currentUser.first_name }}" ng-model="info.first_name" required>
+					    					</div>
+				    					</div>
+				    					<div class="col-xs-6">
+				    						<div class="form-group">
+					    						<label for="last_name">Last Name</label>
+					    						<input type="name" class="form-control" id="last_name" placeholder="{{ globals.currentUser.last_name }}" ng-model="info.last_name" required>
+					    					</div>
+				    					</div>
+				  					</div>
+				  					<div class="row">
+				    					<div class="col-xs-12">
+				    						<div class="form-group" ng-class="{'has-error': registerForm.email.$invalid && registerForm.email.$dirty}">
+					    						<label for="email">Email address</label>
+					    						<input type="email" class="form-control" name="email" id="email" placeholder="{{ globals.currentUser.email }}" ng-model="info.email" required>
+					    					</div>
+				    					</div>
+				    				</div>
+				    				<div class="row">
+				    					<div class="col-xs-12">
+				    						<button type="button" class="btn btn-primary" ng-click="vm.changeInfo(info)">Submit</button>
+				    					</div>
+				    				</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+							    <h3 class="panel-title">Change User Credentials</h3>
+							</div>
+							<div class="panel-body">
+								<form name="usernameForm" novalidate>
+									<div class="row">
+										<div class="col-xs-12">
+											<div class="alert alert-success" role="alert" ng-show="vm.usernameFormSuccess">Your username has been updated</div>
+											<div class="alert alert-danger" role="alert" ng-show="vm.usernameFormError"><strong>Sorry,</strong> there was an error updating your username.</div>
+										</div>
+									</div>
+									<div class="row">
+				  					<div class="col-xs-12">
+				  						<div class="form-group">
+				    						<label for="first_name">Username</label>
+				    						<div class="input-group">
+										   		<input type="name" class="form-control" id="first_name" placeholder="{{ globals.currentUser.username }}" ng-model="username" ng-minlength="3" ng-required="true" required />
+										      	<span class="input-group-btn">
+										        	<button class="btn btn-primary" type="button" ng-click="vm.changeUsername(username, usernameForm.$valid)" ng-disabled="usernameForm.$invalid">Submit</button>
+										      	</span>
+										    </div>
+				    					</div>
+				  					</div>
+				  				</div>
+				  			</form>
+			  				<div class="row">
+			  					<div class="col-xs-12"><hr></div>
+			  				</div>
+			  				<form name="passwordForm">
+			  					<div class="row">
+										<div class="col-xs-12">
+											<div class="alert alert-success" role="alert" ng-show="vm.passwordFormSuccess">Your password has been updated</div>
+											<div class="alert alert-danger" role="alert" ng-show="vm.passwordFormError"><strong>Sorry,</strong> there was an error updating your password.</div>
+										</div>
+									</div>
+				  				<div class="row">
+				  					<div class="col-xs-5">
+				  						<div class="form-group">
+										    <label for="current_password">Old Password</label>
+										    <input type="password" class="form-control" id="current_password" placeholder="Password" ng-model="cred2.old_password" ng-required="true" required>
+											</div>
+										</div>
+				  					<div class="col-xs-7">
+				  						<div class="form-group">
+				    						<label for="new_password">New Password</label>
+				    						<div class="input-group">
+										   		<input type="password" class="form-control" id="new_password" placeholder="New Password" ng-model="cred2.new_password" ng-required="true" required>
+										      	<span class="input-group-btn">
+										        	<button class="btn btn-primary" type="button" ng-click="vm.changePassword(cred2)" ng-disabled="passwordForm.$invalid">Submit</button>
+										      	</span>
+										    </div>
+				    					</div>
+				  					</div>
+				    			</div>
+				    		</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<button type="button" class="btn btn-danger" ng-click="vm.deleteUser()" ng-confirm-confirm="Are you sure, {{ user.username }}?">Delete User</button>
+					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-12">
-			<button type="button" class="btn btn-danger" ng-click="vm.deleteUser()" ng-confirm-confirm="Are you sure, {{ user.username }}?">Delete User</button>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-12">
-			<h3>Recent Comments</h3>
-			<blockquote>
-				<p>I haven't even implemented articles yet!</p>
-				<footer><cite>Damon Talks Mars</cite></footer>
-			</blockquote>
-		</div>
-	</div>
+		</uib-tab>
+		<uib-tab>
+			<uib-tab-heading><i class='fa fa-plus'></i> Add Article</uib-tab-heading>
+			<div class="row">
+				<div class="col-xs-12">
+					<h2>Add Article</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<div data-ng-controller="ArticleFormController as article">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+									    <h3 class="panel-title">Article Preview</h3>
+									</div>
+									<div class="panel-body">
+										<div class="row">
+											<div class="col-sm-12">
+												<div ng-bind-html="article.title"></div>
+												<div ng-bind-html="article.byline"></div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-12">
+												<div id="htmlBody" ng-bind-html="htmlBody"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+					    </div>
+						</div>
+						<form name="articleForm" novalidate>
+							<div class="alert alert-success" role="alert" ng-show="articleForm.success">Your article has been posted <a href="/articles/{{article_id}}">here</a>.</div>
+							<div class="alert alert-danger" role="alert" ng-show="articleForm.error"><strong>Sorry,</strong> {{ articleForm.msg }}</div>
+							<span class="help-block">All fields required</span>
+							<div class="row">
+						    <div class="col-sm-6">
+						    	<div class="form-group" ng-class="{'has-error': articleForm.title.$error.required && articleForm.title.$touched}">
+							    	<label class="control-label" for="title">Title</label>
+							      <textarea name="title" rows="1" msd-elastic class="form-control" id="title" ng-model="article.title" required=""></textarea>
+							      <span class="help-block" ng-show="articleForm.title.$error.required && articleForm.title.$touched">Please input an article title</span>
+							    </div>
+						    </div>
+						  </div>
+						  <div class="row">
+						    <div class="col-sm-8">
+						    	<div class="form-group" ng-class="{'has-error': articleForm.byline.$error.required && articleForm.byline.$touched}">
+							    	<label class="control-label" for="byline">Byline</label>
+							      <textarea name="byline" rows="1" msd-elastic class="form-control" id="byline" ng-model="article.byline" required=""></textarea>
+							      <span class="help-block" ng-show="articleForm.byline.$error.required && articleForm.byline.$touched">Please input an article byline</span>
+							    </div>
+						    </div>
+						  </div>
+							<div class="row">
+						    <div class="col-sm-12">
+						    	<div class="form-group" ng-class="{'has-error': articleForm.body.$error.required && articleForm.body.$touched}">
+							    	<label class="control-label" for="markdownBody">Body <small>(in <a href="https://help.github.com/articles/markdown-basics/">markdown</a>)</small></label>
+							      <textarea name="body" msd-elastic class="form-control" id="markdownBody" ng-model="article.body" required=""></textarea>
+							      <span class="help-block" ng-show="articleForm.body.$error.required && articleForm.body.$touched">Please input an article body</span>
+							    </div>
+						    </div>
+						  </div>
+						  <div class="row">
+						  	<div class="col-sm-10">
+						  		<div class="form-group" ng-class="{'has-error': (articleForm.img.$error.required || articleForm.img.$error.url) && articleForm.img.$touched}">
+										<label class="control-label" for="imageUrl">Article Image URL</label>
+										<input name="img" type="url" id="img" class="form-control" ng-model="article.img" required="">
+										<span class="help-block" ng-show="articleForm.img.$error.url">Please input a valid image url</span>
+										<span class="help-block" ng-show="articleForm.img.$error.required && articleForm.img.$touched">Please input an article image url</span>
+									</div>
+						  	</div>
+						  	<div class="col-sm-2">
+						  		<div class="form-group" ng-class="{'has-error': articleForm.img_tint.$error.required && articleForm.img_tint.$touched}">
+						  			<label for="img_tint" class="control-label">Image Tint</label>
+							  		<select name="img_tint" id="img_tint" class="form-control" ng-model="article.img_tint" required="">
+							  			<option ng-repeat="tint in tints track by $index">{{ tint }}</option>
+							  		</select>
+							  		<span class="help-block" ng-show="articleForm.img_tint.$error.required && articleForm.img_tint.$touched">Please select an image tint</span>
+							  	</div>
+						  	</div>
+						  </div>
+						  <div class="row">
+							  <div class="col-xs-12">
+							  	<br>
+		  						<input type="submit" class="btn btn-primary" ng-click="createArticle(article, articleForm.$valid)" value="submit" />
+		  					</div>
+		  				</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</uib-tab>
+		<uib-tab>
+			<uib-tab-heading><i class='fa fa-cloud-upload'></i> Upload Images</uib-tab-heading>
+			<div data-ng-controller="CloudinaryController as vm">
+				<div class="row">
+					<div class="col-xs-12">
+						<h2>Upload Images to Cloudinary</h2>	
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+							    <h3 class="panel-title">Select files you would like to put in the cloud</h3>
+							</div>
+							<div class="panel-body">
+								<form name="cloudinaryForm">
+									<div class="row">
+										<div class="col-xs-12">
+											<div class="alert alert-success" role="alert" ng-show="vm.cloudinaryFormSuccess">Your images have been uploaded</div>
+											<div class="alert alert-danger" role="alert" ng-show="vm.cloudinaryFormError"><strong>Sorry,</strong> there was an error uploading your images</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-xs-4">
+											<label class="control-label" for="folder">Cloudinary Folder Name</label>
+											<input name="folder" type="text" id="folder" class="form-control" ng-model="vm.folder" placeholder="e.g. pictures_of_spiderman" required="">
+											<span class="help-block" ng-show="cloudinaryForm.folder.$invalid">folder name required</span>
+										</div>
+										<div class="col-xs-8"></div>
+									</div>
+									<div class="row">
+										<div class="col-xs-8">
+											<br>
+											<span class="btn btn-default btn-file">
+												Browse... <input type="file" ngf-select ngf-multiple="true" ng-model="vm.files" name="files" ngf-pattern="'image/*'" accept="image/*" ng-required></input>
+											</span>
+											<button type="submit" class="btn btn-primary" ng-click="vm.uploadFiles(vm.files, vm.folder)">Submit</button>
+										</div>
+										<div class="col-xs-4"></div>
+									</div>
+									<div ng-show="cloudinaryForm.files.$valid && cloudinaryForm.files.$dirty">
+										<div class="col-xs-12">
+											<table class="table table-striped table-condensed table-hover">
+												<thead>
+													<tr>
+														<th>#</th>
+														<th>Image</th>
+														<th>Filename</th>
+														<th>Upload url</th>
+													</tr>
+												</thead>
+												<tbody ng-repeat="file in vm.files track by $index">
+													<tr>
+														<td>{{ $index + 1 }}</td>
+														<td><img class="img-responsive" ngf-src="file"></td>
+														<td>{{ file.name }}</td>
+														<td>
+															<div class="input-group">
+														    <input type="url" name="url" class="form-control" value="http://res.cloudinary.com/storybored/image/upload/{{ vm.folder }}/{{ file.name }}" readonly>
+																<span class="input-group-btn"><button class="btn btn-primary" type="button" clipboard text="'http://res.cloudinary.com/storybored/image/upload/'+vm.folder+'/'+file.name" ng-disabled="cloudinaryForm.$invalid">Copy</button></span>
+														  </div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+			</div>
+		</uib-tab>
+	</uib>
 </div>

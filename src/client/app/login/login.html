@@ -1,3 +1,64 @@
+<!-- Register Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="signInModalLabel">
+  <div class="modal-dialog" role="document">
+    <form name="register" id="register" role="form" data-ng-controller="RegisterController as vm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Welcome to StoryBored, <span ng-bind="vm.user.first_name"></h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="alert alert-danger" role="alert" ng-show="vm.error"><strong>Sorry, </strong>{{ vm.message }}</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input type="name" class="form-control" id="first_name" placeholder="First Name" ng-model="vm.user.first_name" required>
+              </div>
+            </div>
+            <div class="col-xs-6">
+              <div class="form-group">
+                <label for="last_name">Last Name</label>
+                <input type="name" class="form-control" id="last_name" placeholder="Last Name" ng-model="vm.user.last_name" required>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="form-group" ng-class="{'has-error': registerForm.email.$invalid && registerForm.email.$dirty}">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" name="email" id="email" placeholder="Email" ng-model="vm.user.email" required>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" placeholder="Username" ng-model="vm.user.username" required>
+            </div>
+            </div>
+            <div class="col-xs-6">
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Password" ng-model="vm.user.password" required>
+            </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.error=false">Close</button>
+          <button type="button" class="btn btn-primary" ng-click="vm.register(vm.user)">Register</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <div class="container">
   <div class="col-xs-12">
     <h4>Login</h4>

@@ -1,9 +1,10 @@
 // Partials
 @import 'partials/base';
 @import 'partials/typography';
+@import 'partials/tint';
 
-$xs-header: 120px;
-$sm-header: 50px;
+$xs-header: 80px;
+$sm-header: 40px;
 $md-header: 40px;
 
 body {
@@ -18,11 +19,14 @@ body {
 
 header {
 	@include sm {
-		height: auto;
+		height: $sm-header;
 		font-size: 26px;
 		.btn {
 			font-size: .3em;
 		}
+	}
+	@include md {
+		height: $md-header;
 	}
 	
 	height: $xs-header;
@@ -33,19 +37,13 @@ header {
 	top: 0;
 	left: 0;
 	z-index: 1;
-	#logo a:hover, #logo a:visited, #logo a:active {
+	#logo a:hover, #logo a:visited, #logo a:active,  #logo a:link {
 		text-decoration: none;
 		color: #337AB7;
 	}
 	.btn {
 		border: none;
 		border-radius: 0;
-	}
-	.dropdown {
-		font-family: arial;
-		i {
-			margin-right: 5px;
-		}
 	}
 
 	#username {
@@ -71,37 +69,6 @@ header {
 	}
 }
 
-.tint {
-	position: relative;
-	float: left;
-}
-
-.tint:before {
-	content: "";
-	display: block;
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-}
-
-.red:before {
-	background: rgba(144, 0, 0, 0.5);
-}
-
-.green:before {
-	background: rgba(22, 89, 4, 0.5);
-}
-
-.blue:before {
-	background: rgba(6, 26, 125, 0.5);
-}
-
-.pink:before {
-	background: rgba(125, 0, 69, 0.5);
-}
-
 .img-text {
 	width: 100%;
 	font-family: arial;
@@ -113,7 +80,7 @@ header {
 	}
 	p {
 		margin: 0;
-		padding-left: 40px;
+		padding: 0 10px 0 40px;
 		font-weight: 600;
 	}
 }
@@ -127,6 +94,21 @@ header {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
+
+  .author {
+  	float: right;
+  	margin: 5px;
+  	padding: 5px;
+  	border-radius: 50px;
+  	line-height: 50px;
+  	text-align: center;
+  	font-family: arial;
+  	font-weight: 700;
+  	color: white;
+  	background-color: rgba(0, 0, 0, .8);
+		font-size: 18px;
+		font-weight: 300;
+	}
 }
 
 form {
@@ -158,3 +140,41 @@ input[type="file"] {
 	opacity: 1;
 	@include transition(0.5s linear all);
 }
+
+// angular bootstrap styling
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+textarea {
+	overflow: hidden;
+	height: 40px;
+}
+
+.dropdown-menu {
+	font-family: arial;
+	font-size: 1.15em;
+	i {
+		width: 20px;
+		margin-right: 10px;
+	}
+}
+.btn-file {
+	position: relative;
+	overflow: hidden;
+
+	input[type="file"] {
+		position: absolute;
+	  top: 0;
+	  right: 0;
+	  min-width: 100%;
+	  min-height: 100%;
+	  font-size: 100px;
+	  text-align: right;
+	  filter: alpha(opacity=0);
+	  opacity: 0;
+	  outline: none;
+	  background: white;
+	  cursor: inherit;
+	  display: block;
+	}
+}
+

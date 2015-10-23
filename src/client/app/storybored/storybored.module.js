@@ -8,6 +8,11 @@
       'ngRoute',
       'ngCookies',
       'ngFileUpload',
-      'ngAnimate'
+      'ngAnimate',
+      'ui.bootstrap',
+      'ngSanitize',
+      'monospaced.elastic',
+      'angular-clipboard',
+      'angularUtils.directives.dirDisqus'
     ]);
 })();

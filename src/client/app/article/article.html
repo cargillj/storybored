@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="img-responsive">
+        <div class="ratio img-responsive"></div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h6>{{ vm.date | date:'longDate'}}</h6>
+      <h2>{{ vm.title }} <small>By {{ vm.author }}</small></h2>
+      <h4>{{ vm.byline }}</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div ng-bind-html="vm.body"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <dir-disqus disqus-shortname="{{ vm.disqusShortname }}"
+         disqus-identifier="{{ vm.disqusId }}"
+         disqus-url="{{ vm.disqusUrl }}"
+         disqus-title="{{ vm.title }}">
+      </dir-disqus>
+    </div>
+  </div>
+
+</div>

@@ -3,6 +3,7 @@
 <head>
 	<!-- meta -->
 	<meta charset="utf-8">
+	<base href="/">
 	<title>StoryBored</title>
 	<meta name="description" content="StoryBored aims to provide an original, current, and unbiased take on pop-culture phenomena such as movies, television, comics, and music.">
 	<meta charset="utf-8"/>
@@ -11,10 +12,9 @@
 	<meta property="og:title" content="StoryBored"/>
 	<meta property="og:type" content="website"/>
 	<meta property="og:image" content="img/storybored.jpg"/>
-	<meta property="og:url" content="http://ec2-52-89-99-183.us-west-2.compute.amazonaws.com:3000/#/"/>
+	<meta property="og:url" content="http://ec2-52-89-99-183.us-west-2.compute.amazonaws.com:3000"/>
 	<meta property="og:description" content="StoryBored aims to provide an original, current, and unbiased take on pop-culture phenomena such as movies, television, comics, and music."/>
 	
-	<!-- <base href="/"> -->
 	<!-- build:css -->
 	<!-- endbuild -->
 	<!-- build:theme -->
@@ -23,125 +23,28 @@
 <body data-ng-controller="indexController">
 	<!-- build:js -->
 	<!-- endbuild -->
-	<!-- Login Modal -->
-	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel">
-    	<div class="modal-dialog" role="document">
-    		<div class="modal-content">
-    			<form name="login" id="login" role="form" data-ng-controller="LoginController as vm">
-	    			<div class="modal-header">
-	    				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	    				<h4 class="modal-title">Login</h4>
-	    			</div>
-	    			<div class="modal-body">
-	    				<div class="alert alert-danger" role="alert" ng-show="vm.error"><strong>Sorry,</strong> the username or password you entered is incorrect.</div>
-    					<div class="form-group" ng-class="{ 'has-error': login.username.$dirty && login.username.$error.required }">
-							<label for="username">Username</label>
-							<input type="text" class="form-control" name="username" id="username" placeholder="Username" ng-model="vm.username" required>
-							<span ng-show="login.username.$dirty && login.username.$error.required" class="help-block">Username is required</span>
-						</div>
-						<div class="form-group" ng-class="{ 'has-error': login.password.$dirty && login.password.$error.required }">
-						    <label for="password">Password</label>
-						    <input type="password" class="form-control" name="password" id="password" placeholder="Password" ng-model="vm.password" required>
-						    <span ng-show="login.password.$dirty && login.password.$error.required" class="help-block">Password is required</span>
-						</div>
-						<p class="help-block">Not a member? <a href="" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">Register</a></p>
-		    		</div>
-	    			<div class="modal-footer">
-	    				<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.error=false">Close</button>
-	    				<button type="submit" ng-disabled="login.$invalid || dataLoading" class="btn btn-primary" ng-click="vm.login()">Login</button>
-	    			</div>
-    			</form>
-    		</div>
-    	</div>
-    </div>
-
-
-    <!-- Register Modal -->
-    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="signInModalLabel">
-    	<div class="modal-dialog" role="document">
-    		<form name="register" id="register" role="form" data-ng-controller="RegisterController as vm">
-	    		<div class="modal-content">
-	    			<div class="modal-header">
-	    				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	    				<h4 class="modal-title">Welcome to StoryBored, <span ng-bind="vm.user.first_name"></h4>
-	    			</div>
-	    			<div class="modal-body">
-	    				<div class="row">
-	    					<div class="col-xs-12">
-	    						<div class="alert alert-danger" role="alert" ng-show="vm.error"><strong>Sorry, </strong>{{ vm.message }}</div>
-	    					</div>
-	    				</div>
-    					<div class="row">
-	    					<div class="col-xs-6">
-	    						<div class="form-group">
-		    						<label for="first_name">First Name</label>
-		    						<input type="name" class="form-control" id="first_name" placeholder="First Name" ng-model="vm.user.first_name" required>
-		    					</div>
-	    					</div>
-	    					<div class="col-xs-6">
-	    						<div class="form-group">
-		    						<label for="last_name">Last Name</label>
-		    						<input type="name" class="form-control" id="last_name" placeholder="Last Name" ng-model="vm.user.last_name" required>
-		    					</div>
-	    					</div>
-    					</div>
-    					<div class="row">
-	    					<div class="col-xs-12">
-	    						<div class="form-group" ng-class="{'has-error': registerForm.email.$invalid && registerForm.email.$dirty}">
-		    						<label for="email">Email address</label>
-		    						<input type="email" class="form-control" name="email" id="email" placeholder="Email" ng-model="vm.user.email" required>
-		    					</div>
-	    					</div>
-	    				</div>
-	    				<div class="row">
-	    					<div class="col-xs-6">
-	    						<div class="form-group">
-								    <label for="username">Username</label>
-								    <input type="text" class="form-control" id="username" placeholder="Username" ng-model="vm.user.username" required>
-								</div>
-	    					</div>
-	    					<div class="col-xs-6">
-	    						<div class="form-group">
-								    <label for="password">Password</label>
-								    <input type="password" class="form-control" id="password" placeholder="Password" ng-model="vm.user.password" required>
-								</div>
-	    					</div>
-	    				</div>
-	    			</div>
-	    			<div class="modal-footer">
-	    				<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.error=false">Close</button>
-	    				<button type="button" class="btn btn-primary" ng-click="vm.register(vm.user)">Register</button>
-	    			</div>
-    			</form>
-    		</div>
-    	</div>
-    </div>
-
 	<header>
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-4 col-sm-6">
-					<div id="logo"><a href="#/">Story<span>Bored</span></a></div>
+					<div id="logo"><a href="/">Story<span>Bored</span></a></div>
 				</div>
-				<div class="col-xs-7 col-sm-4"></div>
-				<div class="col-xs-1 col-sm-2">
-					<div class="dropdown">
-						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-							<i class="fa fa-bars fa-3x"></i>
-							<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu">
-							<li><a href="" ng-click="toggleTheme()" id="light-switch"><i class="fa fa-lightbulb-o"></i><span></span></a></li>
-							<!-- <li role="separator" class="divider"></li> -->
-							<!-- <li class="dropdown-header">Admin Actions</li> -->
-							<!-- <li><a href="#"><i class="fa fa-plus"></i>Add Post</a></li> -->
-						    <li role="separator" class="divider"></li>
-						    <li class="dropdown-header">{{ globals.currentUser.username }}</li>
-						    <li ng-if="globals.currentUser"><a href="#dashboard"><i class="fa fa-tasks"></i>Dashboard</a></li>
-						    <li ng-if="globals.currentUser"><a href="" ng-click="logout()"><i class="fa fa-sign-out"></i>Logout</a></li>
-						    <li ng-if="!globals.currentUser"><a href="" data-toggle="modal" data-target="#loginModal"><i class="fa fa-sign-in"></i>Login</a></li>
-						</ul>
-					</div>
+				<div class="col-xs-7 col-sm-5"></div>
+				<div class="col-xs-1 col-sm-1">
+			    <!-- Simple dropdown -->
+			    <span uib-dropdown uib-keyboard-nav dropdown-append-to-body>
+			      <a href id="simple-dropdown" uib-dropdown-toggle>
+			        <i class="fa fa-bars"></i>
+			      </a>
+			      <ul class="uib-dropdown-menu dropdown-menu-right" aria-labelledby="simple-dropdown">
+			        <li><a href="" ng-click="toggleTheme()" id="light-switch"><i class="fa fa-lightbulb-o"></i><span></span></a></li>
+							<li><a href=""><i class="fa fa-archive"></i>Archive</a></li>
+							<li ng-show="globals.currentUser" role="separator" class="divider"></li>
+							<li ng-show="globals.currentUser" class="dropdown-header">Admin Actions</li>
+							<li ng-show="globals.currentUser"><a href="/dashboard"><i class="fa fa-cogs"></i>Dashboard</a></li>
+							<li ng-show="globals.currentUser"><a href="" ng-click="logout()"><i class="fa fa-sign-out"></i>Logout</a></li>
+			      </ul>
+			    </span>
 				</div>
 			</div>
 		</div>

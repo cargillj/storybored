@@ -6,7 +6,8 @@ var gulp = require('gulp')
   , uglify = require('gulp-uglify')
   , sass = require('gulp-sass')
   , order = require('gulp-order')
-  , del = require('del');
+  , del = require('del')
+  , livereload = require('gulp-livereload');
 
 var bases = {
   src: './src/client/',
@@ -19,11 +20,13 @@ var paths = {
   scripts: ['src/client/app/**/*.js'],
   sass: ['./src/client/static/css/*'],
   vendorcss: [
-    './src/client/bower_components/bootstrap/dist/css/bootstrap.min.css',
-    './src/client/bower_components/font-awesome/css/font-awesome.min.css'
+    './src/client/bower_components/bootstrap-css-only/css/bootstrap.min.css',
+    './src/client/bower_components/angular-bootstrap/ui.bootstrap-csp.css',
+    './src/client/bower_components/font-awesome/css/font-awesome.min.css',
+    './src/client/bower_components/highlightjs/styles/github.css'
   ],
   fonts: './src/client/static/fonts/*',
-  images: './src/client/static/img/**'
+  images: './src/client/static/img/**',
 };
 
 var bowerConfig = {
@@ -43,7 +46,7 @@ gulp.task('vendorjs', function() {
       "*"
     ], {base: './'}))
     .pipe(concat('vendor.min.js'))
-    .pipe(uglify())
+    // .pipe(uglify())
     .pipe(gulp.dest(bases.dist+'scripts/'));
 });
 
@@ -57,16 +60,18 @@ gulp.task('js', function() {
     "*"
   ], {base: './'}))
   .pipe(concat("storybored.min.js"))
-  .pipe(uglify({mangle: false}))
-  .pipe(gulp.dest(bases.dist+'scripts/'));
+  // .pipe(uglify({mangle: false}))
+  .pipe(gulp.dest(bases.dist+'scripts/'))
+  .pipe(livereload());
 });
 
 // Compile all sass
 gulp.task('sass', function() {
   gulp.src(paths.sass)
-    .pipe(filter('*scss'))
+    .pipe(filter('*.scss'))
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-    .pipe(gulp.dest(bases.dist+'css/'));
+    .pipe(gulp.dest(bases.dist+'css/'))
+    .pipe(livereload());
 });
 
 // Put vendor css in dist
@@ -92,7 +97,8 @@ gulp.task('index', function() {
         tpl: '<link href="%s" rel="stylesheet" id="light-theme"></link>'
       }
     }))
-    .pipe(gulp.dest(bases.dist));
+    .pipe(gulp.dest(bases.dist))
+    .pipe(livereload());
 });
 
 // Put views in dist
@@ -105,7 +111,7 @@ gulp.task('views', function() {
 gulp.task('images', function() {
   gulp.src(paths.images)
     .pipe(gulp.dest(bases.dist+'img/'))
-}); 
+});
 
 // Build dist folder
 gulp.task('dist', ['vendorjs', 'js', 'sass', 'vendorcss', 'fonts', 'index', 'views', 'images']);
@@ -118,6 +124,14 @@ gulp.task('clean:dist', function() {
 });
 
 gulp.task('clean', ['clean:dist']);
+
+gulp.task('watch', function() {
+  livereload.listen();
+  gulp.watch('src/client/app/**/*.js', ['js']);
+  gulp.watch('src/client/static/css/*.scss', ['sass']);
+  gulp.watch('src/client/app/**/*.html', ['views']);
+  gulp.watch('src/client/index.html', ['index']);
+});
 
 // Default task
 gulp.task('default', function() {});

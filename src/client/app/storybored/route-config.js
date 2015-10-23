@@ -11,6 +11,8 @@
     $routeProvider
       .when('/', {
         templateUrl: 'views/home/home.html',
+        controller: 'HomeController',
+        controllerAs: 'vm'
       })
       .when('/dashboard', {
         templateUrl: 'views/dashboard/dashboard.html',
@@ -21,6 +23,12 @@
         templateUrl: 'views/login/login.html',
         controller: 'LoginController',
         controllerAs: 'vm'
+      })
+      .when('/articles/:article_id', {
+        templateUrl: 'views/article/article.html',
+        controller: 'ArticleController',
+        controllerAs: 'vm'
       });
+    $locationProvider.html5Mode(true);
   }
 })();

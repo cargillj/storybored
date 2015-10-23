@@ -23,13 +23,13 @@
               if(response.data.success) {
                 console.log("User query successful");
                 AuthenticationService.SetCredentials(response.data.user);
+                $location.path('/dashboard');
               } else {
                 console.log("User query unsuccessful");
                 AuthenticationService.ClearCredentials();
                 $location.path('/');
               }
             });
-          $('#loginModal').modal('hide');
         } else {
           console.log("authentication failure " + vm.username);
           delete $window.sessionStorage.token;
