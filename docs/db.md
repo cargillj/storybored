@@ -49,3 +49,27 @@ CREATE TABLE sb.user_roles (
     role_id UUID NOT NULL REFERENCES sb.roles (role_id)
 );
 ```
+## Image Tints
+A tint type for use in the `sb.articles` table.
+```sql
+CREATE TYPE tint AS ENUM ('red', 'green', 'blue', 'pink');
+```
+## Articles
+- **article_id**: the article's id
+- **user_id**: the associated user's id
+- **title**: the title of the article
+- **byline**: small description of the article
+- **body**: the article content (in markdown)
+- **img_tint**: tint that corresponds to css classes for the article image
+- **date**: the date the article was created
+```sql
+CREATE TABLE sb.articles (
+  article_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES sb.users (user_id),
+  title TEXT NOT NULL,
+  byline TEXT NOT NULL,
+  body TEXT NOT NULL,
+  img_tint tint,
+  date TIMESTAMP DEFAULT now()
+);
+```
