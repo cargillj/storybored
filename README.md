@@ -10,17 +10,35 @@ This web application is built upon the PEAN stack: PostgreSQL, Express, Angular,
 Setup is very simple for those who would like to contribute.
 ### Table of Contents
 
-- [Create a PostgreSQL Database](#create-a-postgresql-database-)
-- [Build the site distribution](#build-the-site-distribution-)
+- [Get Node.js](#get-node.js)
+- [Create a PostgreSQL Database](#create-a-postgresql-database)
+- [Create a Cloud with Cloudinary](#create-a-cloud-with-cloudinary)
+- [Build the site distribution](#build-the-site-distribution)
 - [Configure the Server](#configure-the-server)
-- [Run the Server](#run-the-server-)
+- [Run the Server](#run-the-server)
 
-### Create a PostgreSQL Database [](#create-postgres-database) 
+### Get Node.js
+<img src="http://mean.io/system/assets/img/logos/nodejs.png" height="40px">
+
+The storybored server is build upon node. So you first need to install the [node package manager](https://nodejs.org/en/) (npm) 
+for your operating system.
+
+### Create a PostgreSQL Database
+<img src="http://www.datavirtuality.com/blog/wp-content/uploads/2015/08/postgresql-logo-624x110.png" height="40px">
+
 Storybored stores articles, user info, and comments in PostgreSQL tables. To work on StoryBored you will need to download a distribution of [postgreSQL](http://www.postgresql.org/download/) appropriate to your system. Secondly, you will need to [start a database](http://www.postgresql.org/docs/9.1/static/server-start.html) server with your distribution, and lastly, [create a database](http://www.postgresql.org/docs/9.1/static/server-start.html). As you set up your database take note to remember the hostname and port your database is being served from as we will need those later when setting up environment variables for the development server.
 
 Next, we create the StoryBored specific tables in the database using [these queries](docs/db.md).
 
-### Build the Site Distribution [](#build-distribution)
+
+### Create a Cloud with Cloudinary
+<img src="http://res-1.cloudinary.com/cloudinary/image/asset/dpr_2.0/logo-e0df892053afd966cc0bfe047ba93ca4.png" height="40px">
+
+We use the Cloudinary cdn to store images that are linked to within articles.  This gives the writers access to all the image 
+transformations that Cloudinary offers, giving them even more control over the look of their articles.  To start your own 
+development cloud [here](http://cloudinary.com/).
+
+### Build the Site Distribution
 Get the source code:
 ```
 git clone https://github.com/cargillj/storybored.git
@@ -49,15 +67,20 @@ gulp dist
 you now have a distribution of StoryBored located in `dist/`, but the server still needs to be configured to connect to your PostgreSQL database.
 
 ### Configure the Server
-The server still needs to be supplied the connection string to your database. Create the file `env.js` in `src/server` which will hold our environment variables.
+The server still needs to be supplied the connection string to your database, amongst other values.
+Create the file `env.js` in `src/server` which will hold our environment variables.
 
 ```javascript
 // env.js
 
 process.env['CONNECTION_STRING'] = "pg://username:password@host:port/database_name";
+process.env['CLOUDINARY_CLOUD_NAME'] = "your_cloudinary_cloud_name";
+process.env['CLOUDINARY_API_KEY'] = "your_cloudinary_api_key";
+process.env['CLOUDINARY_API_SECRET'] = "your_cloudinary_api_secret";
+process.env['JWT_SECRET'] = "your_jwt_secret";
 ```
 
-### Run the Server [](#run-server)
+### Run the Server
 Simply,
 ```
 node server.js
