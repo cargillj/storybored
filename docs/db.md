@@ -31,6 +31,7 @@ CREATE TABLE sb.users (
     profile_img TEXT DEFAULT 'img/profiles/default.jpg'
 );
 ```
+
 ## Roles Table
 - **role_id**: randomly generated id representing the role
 - **role_name**: plaintext name for role such as 'writer' or 'user' 
@@ -38,8 +39,9 @@ CREATE TABLE sb.users (
 CREATE TABLE sb.roles (
     role_id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
     role_name TEXT NOT NULL
-);
+);  P
 ```
+
 ## User-Roles Table
 - **user_id**: the associated user's id
 - **role_id**: the associated user's role
@@ -49,6 +51,7 @@ CREATE TABLE sb.user_roles (
     role_id UUID NOT NULL REFERENCES sb.roles (role_id)
 );
 ```
+
 ## Image Tints
 A tint type for use in the `sb.articles` table.
 ```sql
@@ -62,6 +65,7 @@ CREATE TYPE tint AS ENUM ('red', 'green', 'blue', 'pink');
 - **body**: the article content (in markdown)
 - **img_tint**: tint that corresponds to css classes for the article image
 - **date**: the date the article was created
+- **textsearch**: a searchable vector of the article's title, byline, and body
 ```sql
 CREATE TABLE sb.articles (
   article_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -70,6 +74,10 @@ CREATE TABLE sb.articles (
   byline TEXT NOT NULL,
   body TEXT NOT NULL,
   img_tint tint,
-  date TIMESTAMP DEFAULT now()
+  date TIMESTAMP DEFAULT now(),
+  textsearch to_tsvector('english', coalesce(title,'') || ' ' || coalesce(byline, '') || ' ' || coalesce(body, ''))
 );
+```
+```sql
+CREATE INDEX textsearch_idx ON sb.articles USING gin(textsearch);
 ```

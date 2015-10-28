@@ -20,7 +20,7 @@ Setup is very simple for those who would like to contribute.
 ### Get Node.js
 <img src="http://mean.io/system/assets/img/logos/nodejs.png" height="40px">
 
-The storybored server is build upon node. So you first need to install the [node package manager](https://nodejs.org/en/) (npm) 
+The storybored server is built upon node. So you first need to install the [node package manager](https://nodejs.org/en/) (npm) 
 for your operating system.
 
 ### Create a PostgreSQL Database

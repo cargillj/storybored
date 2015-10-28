@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div id="col-xs-12">
+      <h1>Archive</h1>
+    </div>
+  </div>
+   <form class="form-inline well">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="form-group">
+          <label for="text_search">Text Search</label>
+          <input type="text" class="form-control" id="text_search" ng-model="vm.text_search">
+        </div>
+        <div class="form-group">
+          <label for="author">Author</label>
+          <input type="text" class="form-control" id="author" ng-model="vm.author">
+        </div>
+        <div class="form-group">
+          <label for="order">Order</label>
+          <select class="form-control" id="order" ng-model="vm.order">
+            <option>Date Asc.</option>
+            <option>Date Desc.</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" ng-click="vm.search(vm.text_search, vm.author, vm.order)">Search</button>
+      </div>
+    </div>
+  </form>
+  <div class="alert alert-warning" role="alert" ng-show="vm.articles.length == 0">Sorry, your search returned no articles.</div>
+  <div class="row" ng-repeat="article in vm.articles track by $index">
+    <a href="/articles/{{ article.article_id }}" class="archive_article">
+      <div class="col-xs-3">
+        <img class="img-responsive" src="{{ article.img }}">
+      </div>
+      <div class="col-xs-9">
+          <h3>{{ article.title }} <small>by {{ article.author }} <small>on {{ article.date | date:'longDate' }}</small></small></h3>
+          <p>{{ article.byline }}</p>
+      </div>
+    </a>
+  </div>
+</div>

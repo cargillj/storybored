@@ -25,6 +25,7 @@ app.use('/', express.static(__dirname + '../../../dist/'));
 app.use('/dashboard', express.static(__dirname + '../../../dist/'));
 app.use('/articles/*', express.static(__dirname + '../../../dist/'));
 app.use('/login', express.static(__dirname + '../../../dist/'));
+app.use('/archive', express.static(__dirname + '../../../dist/'));
 
 // Log requests
 app.use(morgan('dev'));
@@ -59,6 +60,7 @@ app.put('/api/users/profile/:user_id', user.updateProfile);
 // Article API
 app.post('/api/articles', upload.array(), article.create);
 app.get('/api/public/articles/tints', article.getTints);
+app.get('/api/public/articles/archive', article.archive);
 app.get('/api/public/articles/:article_id', article.getById);
 app.get('/api/public/articles/recent/:n', article.getRecent);
 

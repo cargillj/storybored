@@ -23,8 +23,8 @@
     }
   });
 
-  ArticleController.$inject = ['$scope', '$routeParams', 'ArticleService'];
-  function ArticleController($scope, $routeParams, ArticleService) {
+  ArticleController.$inject = ['$routeParams', 'ArticleService'];
+  function ArticleController($routeParams, ArticleService) {
     var article_id = $routeParams.article_id;
     var vm = this;
     vm.disqusShortname = "storybored";

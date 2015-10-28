@@ -28,6 +28,11 @@
         templateUrl: 'views/article/article.html',
         controller: 'ArticleController',
         controllerAs: 'vm'
+      })
+      .when('/archive', {
+        templateUrl: '/views/archive/archive.html',
+        controller: 'ArchiveController',
+        controllerAs: 'vm'
       });
     $locationProvider.html5Mode(true);
   }

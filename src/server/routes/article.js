@@ -56,7 +56,7 @@ exports.getRecent = function(req, res) {
   var n = req.params.n;
 
   pg.connect(connectionString, function(err, client, done) {
-    recentQuery = client.query("SELECT sb.articles.article_id as article_id, sb.articles.title as title, sb.articles.byline as byline, sb.articles.img as img, sb.articles.img_tint as img_tint, sb.articles.date as date, sb.users.username as author FROM sb.articles, sb.users WHERE sb.articles.user_id = sb.users.user_id ORDER BY date DESC LIMIT $1", [n]);
+    recentQuery = client.query("SELECT sb.articles.article_id as article_id, sb.articles.title as title, sb.articles.byline as byline, sb.articles.img as img, sb.articles.img_tint as img_tint, sb.articles.date as date, sb.users.username as author FROM sb.articles, sb.users WHERE sb.articles.user_id = sb.users.user_id ORDER BY date DESC LIMIT $1;", [n]);
     recentQuery.on('error', function(err) {
       results.success = false;
       results.err = err;
@@ -92,6 +92,54 @@ exports.getTints = function(req, res) {
       client.end();
       results.success = true;
       return res.json(results);
+    });
+  });
+}
+
+// Get archive results
+exports.archive = function(req, res) {
+  results = {};
+  results.articles = [];
+  var textsearch = "";
+  var username = "";
+  var order = "DESC";
+  if (req.query.textsearch) {
+    textsearch = " AND textsearch @@ to_tsquery('english', '" + decodeURIComponent(req.query.textsearch).replace(' ', ' & ') + "') ";
+  }
+  if (req.query.username) {
+    username = " AND sb.users.username = '" + req.query.username + "'";
+  }
+  if (req.query.order) {
+    order = req.query.order;
+  }
+  
+  pg.connect(connectionString, function(err, client, done) {
+    var archiveQuery = client.query("SELECT sb.articles.article_id as article_id, sb.articles.title as title, sb.articles.byline as byline, sb.articles.img as img, sb.articles.date as date, sb.users.username as author FROM sb.articles, sb.users WHERE sb.articles.user_id = sb.users.user_id " + textsearch + username + " ORDER BY date " + order + " LIMIT 10;");
+    archiveQuery.on('error', function(err) {
+      console.log(err);
+      results.success = false;
+      results.err = err;
+      return res.json(results);
+    });
+    archiveQuery.on('row', function(row) {
+      results.articles.push(row);
+    });
+    archiveQuery.on('end', function() {
+      var countQuery = client.query("SELECT count(*) FROM sb.articles;");
+      countQuery.on('error', function(err) {
+        console.log(err);
+        results.success = false;
+        results.err = err;
+        return res.json(results);
+      });
+      countQuery.on('row', function(row) {
+        results.count = row;
+      });
+      countQuery.on('end', function() {
+        client.end();
+        results.success = true;
+        return res.json(results);
+      });
     });
   });
 }

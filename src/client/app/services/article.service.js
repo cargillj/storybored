@@ -1,3 +1,5 @@
+// article.service.js
+
 (function () {
   'use strict';
 
@@ -12,6 +14,7 @@
     service.GetArticleById = GetArticleById;
     service.GetTints = GetTints;
     service.GetRecentArticles = GetRecentArticles;
+    service.GetArchive = GetArchive;
   
     return service;
     
@@ -33,6 +36,11 @@
     // Get an array of possible image tints
     function GetTints() {
       return $http.get('/api/public/articles/tints').then(handleSuccess, handleError('Error getting tints'));
+    }
+
+    // Search archive
+    function GetArchive(search_params) {
+      return $http.get('/api/public/articles/archive?'+search_params.textsearch+'&'+search_params.username+'&'+search_params.order).then(handleSuccess, handleError('Error getting archive'));
     }
 
     // Private functions

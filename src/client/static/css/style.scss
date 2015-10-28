@@ -51,11 +51,8 @@ header {
 	}
 }
 
-.modal-content, {
-	font-family: arial;
-	a {
-		color: #337AB7;
-	}
+.modal-content a {
+	color: #337AB7;
 }
 
 .jumbotron {
@@ -178,3 +175,6 @@ textarea {
 	}
 }
 
+.archive_article:hover {
+	background-color: $light-gray;
+}
