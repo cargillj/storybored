@@ -26,6 +26,47 @@ exports.create = function(req, res) {
   });
 }
 
+exports.update = function(req, res) {
+  var results = {};
+  var article = req.body;
+
+  pg.connect(connectionString, function(err, client, done) {
+    articleQuery = client.query("UPDATE sb.articles SET (title, byline, body, img, img_tint) = ($1, $2, $3, $4, $5) WHERE article_id = $6;", [article.title, article.byline, article.body, article.img, article.img_tint, article.article_id]);
+    articleQuery.on('error', function(err) {
+      console.log(err);
+      results.success = false;
+      results.err = err;
+      return res.json(results);
+    });
+    articleQuery.on('end', function() {
+      client.end();
+      results.success = true;
+      return res.json(results);
+    });
+  });
+}
+
+exports.delete = function(req, res) {
+  var results = {};
+  var article_id = req.params.article_id;
+  console.log(article_id);
+
+  pg.connect(connectionString, function(err, client, done) {
+    articleQuery = client.query("DELETE FROM sb.articles WHERE article_id = $1", [article_id]);
+    articleQuery.on('error', function(err) {
+      console.log(err);
+      results.success = false;
+      results.err = err;
+      return res.json(results);
+    });
+    articleQuery.on('end', function() {
+      client.end();
+      results.success = true;
+      return res.json(results);
+    });
+  });
+}
+
 // Get an article with its id
 exports.getById = function(req, res) {
   results = {};
@@ -75,7 +116,7 @@ exports.getRecent = function(req, res) {
 
 // Get tint values from database
 exports.getTints = function(req, res) {
-  results = {};
+  var results = {};
   results.tints = [];
   pg.connect(connectionString, function(err, client, done) {
     var tintQuery = client.query("SELECT unnest(enum_range(NULL::tint));");
@@ -140,6 +181,55 @@ exports.archive = function(req, res) {
         results.success = true;
         return res.json(results);
       });
+    });
+  });
+}
+
+exports.getTitles = function(req, res) {
+  var results = {};
+  results.titles = [];
+  username = req.params.username;
+
+  pg.connect(connectionString, function(err, client, done) {
+    var titleQuery = client.query("SELECT sb.articles.title as title, sb.articles.article_id as article_id FROM sb.articles, sb.users WHERE sb.users.username=$1 AND sb.articles.user_id = sb.users.user_id;", [username]);
+    titleQuery.on('error', function(err) {
+      console.log(err);
+      results.success = false;
+      results.err = err;
+      return res.json(results);
+    });
+    titleQuery.on('row', function(row) {
+      results.titles.push(row);
+    });
+    titleQuery.on('end', function() {
+      client.end();
+      results.success = true;
+      return res.json(results);
+    });
+  });
+}
+
+exports.titleArchive = function(req, res) {
+  var results = {};
+  results.titles = [];
+  username = " AND sb.users.username = '" + req.query.username + "'";
+  textsearch = " AND textsearch @@ to_tsquery('english', '" + decodeURIComponent(req.query.textsearch).replace(' ', ' & ') + "') ";
+
+  pg.connect(connectionString, function(err, client, done) {
+    var titleQuery = client.query("SELECT sb.articles.article_id as article_id, sb.articles.title as title FROM sb.articles, sb.users WHERE sb.articles.user_id = sb.users.user_id " + textsearch + username + " ORDER BY date DESC;");
+    titleQuery.on('error', function(err) {
+      console.log(err);
+      results.success = false;
+      results.err = err;
+      return res.json(results);
+    });
+    titleQuery.on('row', function(row) {
+      results.titles.push(row);
+    });
+    titleQuery.on('end', function() {
+      client.end();
+      results.success = true;
+      return res.json(results);
     });
   });
 }

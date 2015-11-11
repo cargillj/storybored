@@ -59,10 +59,14 @@ app.put('/api/users/profile/:user_id', user.updateProfile);
 
 // Article API
 app.post('/api/articles', upload.array(), article.create);
+app.put('/api/articles', upload.array(), article.update);
+app.delete('/api/articles/:article_id', article.delete);
 app.get('/api/public/articles/tints', article.getTints);
 app.get('/api/public/articles/archive', article.archive);
 app.get('/api/public/articles/:article_id', article.getById);
 app.get('/api/public/articles/recent/:n', article.getRecent);
+app.get('/api/public/articles/titles/archive', article.titleArchive);
+app.get('/api/public/articles/titles/:username', article.getTitles);
 
 // Cloudinary API
 app.post('/api/cloudinary/:folder', cloudinary.upload);
