@@ -5,6 +5,18 @@
 
 This web application is built upon the PEAN stack: PostgreSQL, Express, Angular, and Node.
 
+### Current Features
+- Article creation, editing, and deletion
+- Article comment section via Disqus
+- Image uploads to Cloudinary for use in articles
+- Searchable article archive
+- Theme toggle
+- Admin system
+
+### Planned Features
+- Archive pagination
+- Admin registration
+
 ## Getting Started
 ---
 Setup is very simple for those who would like to contribute.
