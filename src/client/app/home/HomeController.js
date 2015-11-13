@@ -11,11 +11,11 @@
   function HomeController($scope, ArticleService) { 
     var vm = this;
 
-    ArticleService.GetRecentArticles(6)
+    ArticleService.GetRecentArticles(5)
       .then(function(response) {
         if(response.data.success) {
           vm.articles = response.data.articles;
-          vm.grid_widths = [12, 6, 6, 4, 4, 4];
+          vm.grid_widths = [12, 6, 6, 6, 6];
         } else {
           console.log(response.data.message);
         }

@@ -30,11 +30,9 @@
     var article = this;
     article.markdownBody = "";
     $scope.editArticle = editArticle;
-    $scope.getArticle = getArticle;
     $scope.deleteArticle = deleteArticle;
     $scope.search = "";
     var search_params = {};
-    $rootScope.getTitles();
 
     $scope.$watch('search', function(current) {
       if(!current || current.length == 0) {
@@ -46,6 +44,7 @@
           .then(function(response) {
             if(response.data.success) {
               $scope.titles = response.data.titles;
+              $scope.selectedArticle = $scope.titles[0];
               if(response.data.titles.length == 0) {
                 $scope.article_search.msg = "no results";
               }
@@ -60,15 +59,36 @@
       }
     });
 
+    $scope.$watch('selectedArticle', function(current) {
+      if($scope.selectedArticle) {
+        ArticleService.GetArticleById($scope.selectedArticle.article_id)
+          .then(function(response) {
+            if(response.data.success) {
+              article.article_id = response.data.article.article_id;
+              article.author = response.data.article.author;
+              article.title = response.data.article.title;
+              article.byline = response.data.article.byline;
+              article.markdownBody = response.data.article.body;
+              article.img = response.data.article.img;
+              article.img_tint = response.data.article.img_tint;
+              $scope.articleForm.success = false;
+              $scope.articleForm.error = false;
+            } else {
+              console.log("error getting article");
+            }
+          });
+      }
+    });
+
     $scope.$watch('article.markdownBody', function(current, original) {
       article.body = marked(current);
     });
 
     $scope.$watch('article.img', function(current) {
-      $('#edit.ratio').css("background-image", 'url("'+article.img+'")');
+      if(article.img) {
+        $('#edit.ratio').css("background-image", 'url("'+article.img+'")');
+      }
     });
-
-    $rootScope.getTitles();
     
     function editArticle(article, isValid) {
       if(isValid) {
@@ -92,27 +112,6 @@
         $scope.articleForm.success = false;
         $scope.articleForm.error = true;
         $scope.articleForm.msg = "your form is invalid."
-      }
-    }
-
-    function getArticle(article_id) {
-      if($scope.selectedArticle) {
-        ArticleService.GetArticleById($scope.selectedArticle.article_id)
-          .then(function(response) {
-            if(response.data.success) {
-              article.article_id = response.data.article.article_id;
-              article.author = response.data.article.author;
-              article.title = response.data.article.title;
-              article.byline = response.data.article.byline;
-              article.markdownBody = response.data.article.body;
-              article.img = response.data.article.img;
-              article.img_tint = response.data.article.img_tint;
-              $scope.articleForm.success = false;
-              $scope.articleForm.error = false;
-            } else {
-              console.log("error getting article");
-            }
-          });
       }
     }
 

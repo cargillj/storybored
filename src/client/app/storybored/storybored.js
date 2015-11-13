@@ -64,28 +64,27 @@
 			}
 		}
 	}
-})();
+	run.$inject = ['$rootScope', '$location', '$cookies', '$http'];
+	function run($rootScope, $location, $cookies, $http) {
+		// keep user logged in after page refresh
+		if($cookies.get('globals')) {
+			$rootScope.globals = JSON.parse($cookies.get('globals')) || {};
+		} else {
+			$rootScope.globals = {};
+		}
 
-run.$inject = ['$rootScope', '$location', '$cookies', '$http'];
-function run($rootScope, $location, $cookies, $http) {
-	// keep user logged in after page refresh
-	if($cookies.get('globals')) {
-		$rootScope.globals = JSON.parse($cookies.get('globals')) || {};
-	} else {
-		$rootScope.globals = {};
+		$rootScope.$on('$locationChangeStart', function (event, next, current) {
+			// redirect to front page if not logged in and trying to access some thing restricted
+			var restrictedPage = $.inArray($location.path(), ['/dashboard']) != -1;
+			var loggedIn = $rootScope.globals.currentUser;
+			if (restrictedPage && !loggedIn) {
+				console.log("Restricted page, log in please");
+				$location.path('/login');
+			}
+		});
 	}
 
-	$rootScope.$on('$locationChangeStart', function (event, next, current) {
-		// redirect to front page if not logged in and trying to access some thing restricted
-		var restrictedPage = $.inArray($location.path(), ['/dashboard']) != -1;
-		var loggedIn = $rootScope.globals.currentUser;
-		if (restrictedPage && !loggedIn) {
-			console.log("Restricted page, log in please");
-			$location.path('/login');
-		}
-	});
-}
-
-function interceptor($httpProvider) {
-	$httpProvider.interceptors.push('authInterceptor')
-}
+	function interceptor($httpProvider) {
+		$httpProvider.interceptors.push('authInterceptor');
+	}
+})();

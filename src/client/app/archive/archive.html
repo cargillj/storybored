@@ -25,6 +25,7 @@
         <button type="submit" class="btn btn-primary" ng-click="vm.search(vm.text_search, vm.author, vm.order)">Search</button>
       </div>
     </div>
+    <span ng-show="vm.count" class="help-block">{{ vm.count }} matches</span>
   </form>
   <div class="alert alert-warning" role="alert" ng-show="vm.articles.length == 0">Sorry, your search returned no articles.</div>
   <div class="row" ng-repeat="article in vm.articles track by $index">
@@ -37,5 +38,10 @@
           <p>{{ article.byline }}</p>
       </div>
     </a>
+  </div>
+  <div ng-if="vm.count > 10" class="row">
+    <div class="col-xs-12">
+      <uib-pagination total-items="vm.count" ng-model="currentPage" max-size="5" class="pagination-sm" boundary-links="true" rotate="false" num-pages="vm.count / 10"></uib-pagination>
+    </div>
   </div>
 </div>

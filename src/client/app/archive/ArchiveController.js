@@ -40,12 +40,14 @@
             vm.success = true;
             vm.error = false;
             vm.articles = response.data.articles;
+            vm.count = response.data.count;
           } else {
             vm.success = false;
             vm.error = true;
             console.log(response.data.message);
           }
         });
+      var num_pages = count / 10;
     }
 
     // initial query

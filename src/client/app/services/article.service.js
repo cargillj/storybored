@@ -49,6 +49,7 @@
 
     // Get an array of possible image tints
     function GetTints() {
+      console.log("getting tints");
       return $http.get('/api/public/articles/tints').then(handleSuccess, handleError('Error getting tints'));
     }
 
@@ -59,6 +60,7 @@
 
     // Search archive
     function GetArchive(search_params) {
+      console.log(search_params);
       return $http.get('/api/public/articles/archive?'+search_params.textsearch+'&'+search_params.username+'&'+search_params.order).then(handleSuccess, handleError('Error getting archive'));
     }
 

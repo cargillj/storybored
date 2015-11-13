@@ -37,7 +37,9 @@
     });
 
     $scope.$watch('article.img', function(current) {
-      $('#add.ratio').css("background-image", 'url("'+article.img+'")');
+      if(article.img) {
+        $('#add.ratio').css("background-image", 'url("'+article.img+'")');
+      }
     });
 
     function createArticle(article, isValid) {
@@ -54,14 +56,14 @@
             else {
               $scope.articleForm.success = false;
               $scope.articleForm.error = true;
-              $scope.articleForm.msg = response.data.message;
+              $scope.articleForm.msg = "error posting article";
             }
           })
         
       } else {
         $scope.articleForm.success = false;
         $scope.articleForm.error = true;
-        $scope.articleForm.msg = "your form is invalid."
+        $scope.articleForm.msg = response.data.message;
       }
     }
   }

@@ -11,6 +11,7 @@ exports.create = function(req, res) {
   pg.connect(connectionString, function(err, client, done) {
     articleQuery = client.query("INSERT INTO sb.articles (user_id, title, byline, body, img, img_tint) VALUES ($1, $2, $3, $4, $5, $6) RETURNING article_id;", [article.user_id, article.title, article.byline, article.body, article.img, article.img_tint]);
     articleQuery.on('error', function(err) {
+      console.log(err);
       results.success = false;
       results.err = err;
       return res.json(results);
@@ -19,9 +20,18 @@ exports.create = function(req, res) {
       results.article_id = row.article_id;
     });
     articleQuery.on('end', function() {
-      client.end();
-      results.success = true;
-      return res.json(results);
+      tsQuery = client.query("UPDATE sb.articles SET textsearch = to_tsvector('english', coalesce(title,'') || ' ' || coalesce(byline, '') || ' ' || coalesce(body, '')) WHERE article_id = $1", [results.article_id]);
+      tsQuery.on('error', function(err) {
+        console.log(err);
+        results.success = false;
+        results.err = err;
+        return res.json(results);
+      });
+      tsQuery.on('end', function() {
+        client.end();
+        results.success = true;
+        return res.json(results);
+      });
     });
   });
 }
@@ -49,7 +59,6 @@ exports.update = function(req, res) {
 exports.delete = function(req, res) {
   var results = {};
   var article_id = req.params.article_id;
-  console.log(article_id);
 
   pg.connect(connectionString, function(err, client, done) {
     articleQuery = client.query("DELETE FROM sb.articles WHERE article_id = $1", [article_id]);
@@ -145,7 +154,7 @@ exports.archive = function(req, res) {
   var username = "";
   var order = "DESC";
   if (req.query.textsearch) {
-    textsearch = " AND textsearch @@ to_tsquery('english', '" + decodeURIComponent(req.query.textsearch).replace(' ', ' & ') + "') ";
+    textsearch = " AND textsearch @@ to_tsquery('english', '" + decodeURIComponent(req.query.textsearch).replace(/ /g, ' & ') + "') ";
   }
   if (req.query.username) {
     username = " AND sb.users.username = '" + req.query.username + "'";
@@ -166,7 +175,7 @@ exports.archive = function(req, res) {
       results.articles.push(row);
     });
     archiveQuery.on('end', function() {
-      var countQuery = client.query("SELECT count(*) FROM sb.articles;");
+      var countQuery = client.query("SELECT count(*) FROM sb.articles, sb.users WHERE sb.articles.user_id = sb.users.user_id " + textsearch + username + ";");
       countQuery.on('error', function(err) {
         console.log(err);
         results.success = false;
@@ -174,7 +183,8 @@ exports.archive = function(req, res) {
         return res.json(results);
       });
       countQuery.on('row', function(row) {
-        results.count = row;
+        console.log(row.count);
+        results.count = row.count;
       });
       countQuery.on('end', function() {
         client.end();
@@ -213,7 +223,7 @@ exports.titleArchive = function(req, res) {
   var results = {};
   results.titles = [];
   username = " AND sb.users.username = '" + req.query.username + "'";
-  textsearch = " AND textsearch @@ to_tsquery('english', '" + decodeURIComponent(req.query.textsearch).replace(' ', ' & ') + "') ";
+  textsearch = " AND textsearch @@ to_tsquery('english', '" + decodeURIComponent(req.query.textsearch).replace(/ /g, ' & ') + "') ";
 
   pg.connect(connectionString, function(err, client, done) {
     var titleQuery = client.query("SELECT sb.articles.article_id as article_id, sb.articles.title as title FROM sb.articles, sb.users WHERE sb.articles.user_id = sb.users.user_id " + textsearch + username + " ORDER BY date DESC;");
