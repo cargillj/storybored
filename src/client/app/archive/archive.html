@@ -25,23 +25,23 @@
         <button type="submit" class="btn btn-primary" ng-click="vm.search(vm.text_search, vm.author, vm.order)">Search</button>
       </div>
     </div>
-    <span ng-show="vm.count" class="help-block">{{ vm.count }} matches</span>
   </form>
   <div class="alert alert-warning" role="alert" ng-show="vm.articles.length == 0">Sorry, your search returned no articles.</div>
+  <span ng-show="vm.count" class="help-block">Showing {{ vm.lower }}-{{ vm.upper }} of {{ vm.count }} articles</span>
   <div class="row" ng-repeat="article in vm.articles track by $index">
     <a href="/articles/{{ article.article_id }}" class="archive_article">
       <div class="col-xs-3">
-        <img class="img-responsive" src="{{ article.img }}">
+        <img class="img-responsive" ng-src="{{article.img}}">
       </div>
       <div class="col-xs-9">
-          <h3>{{ article.title }} <small>by {{ article.author }} <small>on {{ article.date | date:'longDate' }}</small></small></h3>
-          <p>{{ article.byline }}</p>
+          <h3>{{ article.title }} <small>by {{ article.author }}<small> on {{ article.date | date:'longDate' }}</small></small></h3>
+          <p>{{ article.byline }}</p> 
       </div>
     </a>
   </div>
-  <div ng-if="vm.count > 10" class="row">
+  <div ng-if="vm.count > 5" class="row">
     <div class="col-xs-12">
-      <uib-pagination total-items="vm.count" ng-model="currentPage" max-size="5" class="pagination-sm" boundary-links="true" rotate="false" num-pages="vm.count / 10"></uib-pagination>
+      <uib-pagination total-items="vm.count" items-per-page="5" ng-model="vm.currentPage" max-size="5" class="pagination-md" boundary-links="true" rotate="true" num-pages="vm.num_pages" ng-change="vm.pageChanged()"></uib-pagination>
     </div>
   </div>
 </div>

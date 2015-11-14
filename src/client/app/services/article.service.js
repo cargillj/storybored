@@ -60,8 +60,7 @@
 
     // Search archive
     function GetArchive(search_params) {
-      console.log(search_params);
-      return $http.get('/api/public/articles/archive?'+search_params.textsearch+'&'+search_params.username+'&'+search_params.order).then(handleSuccess, handleError('Error getting archive'));
+      return $http.get('/api/public/articles/archive?'+search_params.textsearch+'&'+search_params.username+'&'+search_params.order+'&'+search_params.limit+'&'+search_params.offset).then(handleSuccess, handleError('Error getting archive'));
     }
 
     // Search archive and get titles

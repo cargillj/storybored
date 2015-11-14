@@ -41,6 +41,7 @@
           vm.body = marked(response.data.article.body);
           vm.date = response.data.article.date;
           vm.author = response.data.article.author;
+          vm.role = response.data.article.role;
         } else {
           console.log(response.data.message);
         }

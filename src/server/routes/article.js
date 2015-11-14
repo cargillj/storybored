@@ -82,7 +82,7 @@ exports.getById = function(req, res) {
   var article_id = req.params.article_id;
 
   pg.connect(connectionString, function(err, client, done) {
-    articleQuery = client.query("SELECT sb.articles.article_id as article_id, sb.articles.title as title, sb.articles.byline as byline, sb.articles.body as body, sb.articles.img as img, sb.articles.img_tint as img_tint, sb.articles.date as date, sb.users.username as author FROM sb.articles, sb.users WHERE sb.articles.user_id = sb.users.user_id AND article_id=$1;", [article_id]);
+    articleQuery = client.query("SELECT sb.articles.article_id as article_id, sb.articles.title as title, sb.articles.byline as byline, sb.articles.body as body, sb.articles.img as img, sb.articles.img_tint as img_tint, sb.articles.date as date, sb.users.username as author, sb.roles.role_name as role FROM sb.articles, sb.users, sb.user_roles, sb.roles WHERE sb.articles.user_id = sb.users.user_id AND sb.user_roles.role_id = sb.roles.role_id AND sb.user_roles.user_id = sb.articles.user_id AND article_id=$1;", [article_id]);
     articleQuery.on('error', function(err) {
       results.success = false;
       results.err = err;
@@ -116,9 +116,21 @@ exports.getRecent = function(req, res) {
       results.articles.push(row);
     });
     recentQuery.on('end', function() {
-      client.end();
-      results.success = true;
-      return res.json(results);
+      var countQuery = client.query("SELECT count(*) FROM sb.articles;");
+      countQuery.on('error', function(err) {
+        console.log(err);
+        results.success = false;
+        results.err = err;
+        return res.json(results);
+      });
+      countQuery.on('row', function(row) {
+        results.count = row.count;
+      });
+      countQuery.on('end', function() {
+        client.end();
+        results.success = true;
+        return res.json(results);
+      });
     });
   });
 }
@@ -153,6 +165,8 @@ exports.archive = function(req, res) {
   var textsearch = "";
   var username = "";
   var order = "DESC";
+  var limit = 10;
+  var offset = 0;
   if (req.query.textsearch) {
     textsearch = " AND textsearch @@ to_tsquery('english', '" + decodeURIComponent(req.query.textsearch).replace(/ /g, ' & ') + "') ";
   }
@@ -162,9 +176,15 @@ exports.archive = function(req, res) {
   if (req.query.order) {
     order = req.query.order;
   }
+  if(req.query.limit) {
+    limit = req.query.limit;
+  }
+  if(req.query.offset) {
+    offset = req.query.offset;
+  }
   
   pg.connect(connectionString, function(err, client, done) {
-    var archiveQuery = client.query("SELECT sb.articles.article_id as article_id, sb.articles.title as title, sb.articles.byline as byline, sb.articles.img as img, sb.articles.date as date, sb.users.username as author FROM sb.articles, sb.users WHERE sb.articles.user_id = sb.users.user_id " + textsearch + username + " ORDER BY date " + order + " LIMIT 10;");
+    var archiveQuery = client.query("SELECT sb.articles.article_id as article_id, sb.articles.title as title, sb.articles.byline as byline, sb.articles.img as img, sb.articles.date as date, sb.users.username as author FROM sb.articles, sb.users WHERE sb.articles.user_id = sb.users.user_id " + textsearch + username + " ORDER BY date " + order + " LIMIT " + limit + " OFFSET " + offset + ";");
     archiveQuery.on('error', function(err) {
       console.log(err);
       results.success = false;
@@ -183,7 +203,6 @@ exports.archive = function(req, res) {
         return res.json(results);
       });
       countQuery.on('row', function(row) {
-        console.log(row.count);
         results.count = row.count;
       });
       countQuery.on('end', function() {

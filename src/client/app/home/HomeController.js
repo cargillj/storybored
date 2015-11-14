@@ -14,8 +14,9 @@
     ArticleService.GetRecentArticles(5)
       .then(function(response) {
         if(response.data.success) {
-          vm.articles = response.data.articles;
-          vm.grid_widths = [12, 6, 6, 6, 6];
+          var articles = response.data.articles;
+          vm.rows = [[articles[0]], [articles[1], articles[2]], [articles[3], articles[4]]];
+          vm.grid_widths = [[12], [6, 6], [6, 6]];
         } else {
           console.log(response.data.message);
         }
