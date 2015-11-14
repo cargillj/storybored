@@ -9,12 +9,11 @@ This web application is built upon the PEAN stack: PostgreSQL, Express, Angular,
 - Article creation, editing, and deletion
 - Article comment section via Disqus
 - Image uploads to Cloudinary for use in articles
-- Searchable article archive
+- Searchable article archive- Archive pagination
 - Theme toggle
 - Admin system
 
 ### Planned Features
-- Archive pagination
 - Admin registration
 
 ## Getting Started
