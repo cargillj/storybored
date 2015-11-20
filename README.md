@@ -12,9 +12,10 @@ This web application is built upon the PEAN stack: PostgreSQL, Express, Angular,
 - Searchable article archive- Archive pagination
 - Theme toggle
 - Admin system
+- User Registration
 
 ### Planned Features
-- Admin registration
+- Forgotten password/username emails
 
 ## Getting Started
 ---
@@ -24,6 +25,7 @@ Setup is very simple for those who would like to contribute.
 - [Get Node.js](#get-node.js)
 - [Create a PostgreSQL Database](#create-a-postgresql-database)
 - [Create a Cloud with Cloudinary](#create-a-cloud-with-cloudinary)
+- [Create a Mailgun Domain](#create-a-mailgun-domain)
 - [Build the site distribution](#build-the-site-distribution)
 - [Configure the Server](#configure-the-server)
 - [Run the Server](#run-the-server)
@@ -46,8 +48,13 @@ Next, we create the StoryBored specific tables in the database using [these quer
 <img src="http://res-1.cloudinary.com/cloudinary/image/asset/dpr_2.0/logo-e0df892053afd966cc0bfe047ba93ca4.png" height="40px">
 
 We use the Cloudinary cdn to store images that are linked to within articles.  This gives the writers access to all the image 
-transformations that Cloudinary offers, giving them even more control over the look of their articles.  To start your own 
+transformations that Cloudinary offers, giving them even more control over the look of their articles. To start your own 
 development cloud [here](http://cloudinary.com/).
+
+### Create a Mailgun Domain
+<img src="http://p5.zdassets.com/hc/settings_assets/218486/200001815/ztEAE5VPuxlrMg23XYd4dw-Mailgun_Secondary.png" height="40px">
+
+We use the Mailgun email service to send emails for registration and forgotten credentials. You can create your mailgun account and domain [here](http://www.mailgun.com/).
 
 ### Build the Site Distribution
 Get the source code:
@@ -89,6 +96,9 @@ process.env['CLOUDINARY_CLOUD_NAME'] = "your_cloudinary_cloud_name";
 process.env['CLOUDINARY_API_KEY'] = "your_cloudinary_api_key";
 process.env['CLOUDINARY_API_SECRET'] = "your_cloudinary_api_secret";
 process.env['JWT_SECRET'] = "your_jwt_secret";
+process.env['MAILGUN_API_KEY'] = "your_mailgun_api_key";
+process.env['MAILGUN_DOMAIN'] = "your_mailgun_domain";
+process.env['MAILGUN_FROM'] = "your_mailgun_email@domain";
 ```
 
 ### Run the Server
