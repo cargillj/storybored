@@ -10,25 +10,45 @@
   RegisterController.$inject = ['$location', 'AuthenticationService', 'UserService'];
   function RegisterController($location, AuthenticationService, UserService) {
     var vm = this;
+    vm.invKey = {};
+    vm.checkKey = checkKey;
     vm.register = register;
+
+    function checkKey(key) {
+      UserService.CheckInvitation(key)
+        .then(function(response) {
+          if(response.data.success) {
+            if(response.data.invitation) {
+              vm.invKey.success = true;
+              vm.invKey.error = false;
+              vm.invKey.valid = true;
+              vm.invKey.message = "Your invitation key is valid. Now you can create an account.";
+            } else {
+              console.log("invalid invitation key");
+              vm.invKey.success = false;
+              vm.invKey.error = true;
+              vm.invKey.valid = false;
+              vm.invKey.message = "the invitation key you entered is invalid";
+            }
+          } else {
+            console.log("Error checking invitation key");
+            vm.invKey.success = false;
+            vm.invKey.error = true;
+            vm.invKey.message = "there was an error checking your invitation key. Please make sure you are inputting the key correctly and try again.";
+          }
+        });
+    }
 
     function register() {
       UserService.Create(vm.user)
         .then(function(response) {
           if(response.data.success) {
             console.log("Registration success");
-            AuthenticationService.Login(vm.user.username, vm.user.password, function (response) {
-              if (response.success) {
-                $('#registerModal').modal('hide');
-                $('#loginModal').modal('show');
-              } else {
-                console.log("authentication failure " + vm.user.username);
-                FlashService.Error(response.message);
-                vm.dataLoading = false;
-              }
-            });
+            AuthenticationService.ClearCredentials();
+            $location.path('/login');
           } else {
-            vm.error = true;
+            console.log(response.data);
+            vm.registerFormError = true;
             switch(response.data.err.code) {
               case '23505':
                 vm.message = "the username you chose is already in use."

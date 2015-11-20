@@ -18,6 +18,8 @@
 		service.UpdatePassword = UpdatePassword;
     service.UploadProfile = UploadProfile;
 		service.Delete = Delete;
+    service.SendInvitation = SendInvitation;
+    service.CheckInvitation = CheckInvitation;
 
 		return service;
 
@@ -34,7 +36,7 @@
 		}
 
 		function Create(user) {
-			return $http.post('/create_user/', user).then(handleSuccess, handleError('Error creating user'));
+			return $http.post('/api/public/users', user).then(handleSuccess, handleError('Error creating user'));
 		}
 		
 		function UpdateInfo(data) {
@@ -60,6 +62,14 @@
 		function Delete(user_id) {
 			return $http.delete('/api/users/' + user_id).then(handleSuccess, handleError('Error deleting user'));
 		}
+
+    function SendInvitation(data) {
+      return $http.put('/api/users/invitation/', data).then(handleSuccess, handleError('Error sending verification email'));
+    }
+
+    function CheckInvitation(key) {
+      return $http.get('/api/users/invitation/'+key).then(handleSuccess, handleError('Error checking invitation'));
+    }
 
 		// Private functions
 

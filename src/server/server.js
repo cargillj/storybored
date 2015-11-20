@@ -25,6 +25,7 @@ app.use('/', express.static(__dirname + '../../../dist/'));
 app.use('/dashboard', express.static(__dirname + '../../../dist/'));
 app.use('/articles/*', express.static(__dirname + '../../../dist/'));
 app.use('/login', express.static(__dirname + '../../../dist/'));
+app.use('/register', express.static(__dirname + '../../../dist/'));
 app.use('/archive', express.static(__dirname + '../../../dist/'));
 
 // Log requests
@@ -45,10 +46,10 @@ app.use(function (err, req, res, next) {
 app.get('/', site.index);
 
 // User
-app.post('/create_user/', upload.array(), user.create);
 app.post('/authenticate', upload.array(), user.authenticate);
 
 // User API
+app.post('/api/public/users', upload.array(), user.create);
 app.get('/api/users', user.getUsers);
 app.get('/api/users/:username', upload.array(), user.getByUsername);
 app.delete('/api/users/:user_id', user.delete);
@@ -56,6 +57,8 @@ app.put('/api/users/info/', upload.array(), user.updateInfo);
 app.put('/api/users/username/', upload.array(), user.updateUsername);
 app.put('/api/users/password/', upload.array(), user.updatePassword);
 app.put('/api/users/profile/:user_id', user.updateProfile);
+app.put('/api/users/invitation/', upload.array(), user.sendInvitation);
+app.get('/api/users/invitation/:key', user.checkInvitation);
 
 // Article API
 app.post('/api/articles', upload.array(), article.create);

@@ -24,6 +24,11 @@
         controller: 'LoginController',
         controllerAs: 'vm'
       })
+      .when('/register', {
+        templateUrl: 'views/register/register.html',
+        controller: 'RegisterController',
+        controllerAs: 'vm'
+      })
       .when('/articles/:article_id', {
         templateUrl: 'views/article/article.html',
         controller: 'ArticleController',

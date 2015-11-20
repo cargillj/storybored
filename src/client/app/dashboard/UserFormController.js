@@ -13,6 +13,7 @@
     vm.changeUsername = changeUsername;
     vm.changePassword = changePassword;
     vm.onFileSubmit = onFileSubmit;
+    vm.sendInvitation = sendInvitation;
 
     function deleteUser() {
       if (confirm("Delete " + $rootScope.globals.currentUser.username + "?")) {
@@ -119,6 +120,22 @@
           console.log(response.data.err);
         }
       });
+    }
+
+    function sendInvitation(email) {
+      var data = {};
+      data.email = email;
+      data.inviter = $rootScope.globals.currentUser.username;
+      UserService.SendInvitation(data)
+        .then(function(response) {
+          if(response.data.success) {
+            vm.newUserFormSuccess = true;
+            vm.newUserFormError = false;
+          } else {
+            vm.newUserFormSuccess = false;
+            vm.newUserFormError = true;
+          }
+        });
     }
   }
 })();

@@ -20,6 +20,28 @@
         </form>
       </div>
     </div>
+    <div class="col-xs-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Invite New Writer</h3>
+        </div>
+        <form name="newUserForm">
+          <div class="panel-body">
+            <div class="alert alert-success" role="alert" ng-show="vm.newUserFormSuccess">An invitation email was sent to {{ newUser.email }}.</div>
+            <div class="alert alert-danger" role="alert" ng-show="vm.newUserFormError"><strong>Sorry,</strong> there was an error sending the invitation email to {{ newUser.email }}.</div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <div class="input-group">
+                <input type="email" class="form-control" name="email" id="email" placeholder="newWriter@gmail.com" ng-model="newUser.email" ng-required="true" required>
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" type="submit" ng-disabled="newUserForm.$invalid" ng-click="vm.sendInvitation(newUser.email)">submit</button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
   <div class="row">
     <div class="col-xs-6">

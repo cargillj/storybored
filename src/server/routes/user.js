@@ -2,10 +2,15 @@
 
 var pg = require('pg')
   , connectionString = process.env['CONNECTION_STRING']
+  , mg_key = process.env['MAILGUN_API_KEY']
+  , mg_domain = process.env['MAILGUN_DOMAIN']
+  , mg_from = process.env['MAILGUN_FROM']
   , jwtSecret = process.env['JWT_SECRET']
   , jwt = require('jsonwebtoken')
   , multiparty = require('multiparty')
-  , fs = require('fs');
+  , fs = require('fs')
+  , Mailgun = require('mailgun-js')
+  , mailcomposer = require('mailcomposer');
 
 // Create user
 exports.create = function(req, res) {
@@ -21,7 +26,7 @@ exports.create = function(req, res) {
       return res.json(results);
     });
     userQuery.on('end', function() {
-      var roleQuery = client.query("INSERT INTO sb.user_roles (user_id, role_id) VALUES ((SELECT user_id FROM sb.users WHERE username=$1), (SELECT role_id FROM sb.roles WHERE role_name='user'));", [data.username]);
+      var roleQuery = client.query("INSERT INTO sb.user_roles (user_id, role_id) VALUES ((SELECT user_id FROM sb.users WHERE username=$1), (SELECT role_id FROM sb.roles WHERE role_name='writer'));", [data.username]);
       roleQuery.on('error', function(err) {
         console.log(err);
         results.success = false;
@@ -29,9 +34,19 @@ exports.create = function(req, res) {
       });
         
       roleQuery.on('end', function() {
-        client.end();
-        results.success = true;
-        return res.json(results);
+        // Remove invitation
+        var invQuery = client.query("DELETE FROM sb.invitations WHERE key = $1;", [data.invKey]);
+        invQuery.on('error', function(err) {
+          console.log(err);
+          results.err = err;
+          results.success = false;
+          return res.json(results);
+        });
+        invQuery.on('end', function() {
+          client.end();
+          results.success = true;
+          return res.json(results);
+        });
       });
     });
     
@@ -267,5 +282,81 @@ exports.updateProfile = function(req, res) {
       results.err = "invalid file";
       return res.json(results);
     }
+  });
+}
+
+exports.sendInvitation = function(req, res) {
+  var results = {};
+  var invKey = "";
+  
+  pg.connect(connectionString, function(err, client, done) {
+    var invQuery = client.query("INSERT INTO sb.invitations (email) VALUES ($1) RETURNING key", [req.body.email]);
+    invQuery.on('error', function(err) {
+      console.log(err);
+      results.err = err;
+      results.success = false;
+      return res.json(results);
+    });
+    invQuery.on('row', function(row) {
+      invKey = row.key;
+    });
+    invQuery.on('end', function() {
+      client.end();
+
+      var mailgun = new Mailgun({apiKey: mg_key, domain: mg_domain});
+      var mail = mailcomposer({
+        from: mg_from,
+        to: req.body.email,
+        subject: 'Invitation to write for StoryBored',
+        text: 'Welcome to the StoryBored Team!\n\nHello,\nYou have been invited by StoryBored writer '+req.body.inviter+' to join the ever-growing team of writers bringing quality content to storybored.news.\n\nYour invitation key is '+invKey+'\n\nPlease go to storybored.news/register within the next 3 days to create your account and start writing!\nAfter you create your account you can log in anytime at storybored.news/login.\n\nThanks,\nStoryBored Team',
+        html: '<h1>Welcome to the StoryBored Team!</h1>Hello,<br>You have been invited by StoryBored writer <b>'+req.body.inviter+'</b> to join the ever-growing team of writers bringing quality content to storybored.news.<br><br><strong>Your invitation key is '+invKey+'</strong><br><br>Please go to storybored.news/register within the next 3 days to create your account and start writing!<br>After you create your account you can log in anytime at storybored.news/login.<br><br><strong>Thanks,<br>StoryBored Team</strong>'
+      });
+
+      mail.build(function(mailBuildError, message) {
+
+        var dataToSend = {
+          to: req.body.email,
+          message: message.toString('ascii')
+        };
+
+        mailgun.messages().sendMime(dataToSend, function(sendError, body) {
+          if (sendError) {
+            console.log(sendError);
+            results.success = false;
+            return res.json(results);
+          } else {
+            results.success = true;
+            return res.json(results);
+          }
+        });
+      });
+    });
+  });
+}
+
+exports.checkInvitation = function(req, res) {
+  var results = {};
+  key = req.params.key;
+
+  pg.connect(connectionString, function(err, client, done) {
+    var query = client.query("SELECT EXISTS(SELECT 1 FROM sb.invitations WHERE key=$1);", [key]);
+    query.on('error', function(err) {
+      console.log(err);
+      results.err = err;
+      results.success = false;
+      return res.json(results);
+    });
+    query.on('row', function(row) {
+      if(row.exists) {
+        results.invitation = true;
+      } else {
+        results.invitation = false;
+      }
+    });
+    query.on('end', function() {
+      client.end();
+      results.success = true;
+      return res.json(results);
+    });
   });
 }
