@@ -32,6 +32,35 @@ CREATE TABLE sb.users (
 );
 ```
 
+## Invitations Table
+- **key**: distinct uuid to identify an invitation 
+- **email**: associated email
+- **timestamp**: timestamp to determine age of invitation
+```sql
+CREATE TABLE sb.invitations (
+  key UUID PRIMARY KEY DEFAULT get_random_uuid(),
+  email TEXT NOT NULL,
+  timestamp TIMESTAMP DEFAULT now()
+);
+```
+
+#### Invitation Deletion Trigger
+A trigger to delete invitations that have existed more than 3 days.
+```sql
+CREATE FUNCTION delete_expired_invitations() RETURNS trigger
+  language plpgsql
+  as $$
+BEGIN
+  DELETE FROM sb.invitations WHERE timestamp < now() - INTERVAL '3 days';
+  RETURN NEW;
+END;
+$$;
+
+CREATE trigger delete_expired_invitations_trigger
+  AFTER INSERT ON sb.invitations
+  EXECUTE PROCEDURE delete_expired_invitations();
+```
+
 ## Roles Table
 - **role_id**: randomly generated id representing the role
 - **role_name**: plaintext name for role such as 'writer' or 'user' 
