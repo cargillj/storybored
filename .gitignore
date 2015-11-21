@@ -22,6 +22,9 @@ bower_components
 ### uncompiled sass ###
 *.css
 
+### photoshop ###
+*.psd
+
 ### directories ###
 dist
 !src/client/static/img/profile/default.jpg
