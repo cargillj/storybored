@@ -16,6 +16,7 @@ var bases = {
 
 var paths = {
   index: ['./src/client/index.html'],
+  favicon: ['./src/client/favicon.ico'],
   views: ['./src/client/app/**/*.html'],
   scripts: ['src/client/app/**/*.js'],
   sass: ['./src/client/static/css/*'],
@@ -101,6 +102,11 @@ gulp.task('index', function() {
     .pipe(livereload());
 });
 
+gulp.task('favicon', function() {
+  gulp.src(paths.favicon)
+    .pipe(gulp.dest(bases.dist));
+});
+
 // Put views in dist
 gulp.task('views', function() {
   gulp.src(paths.views)
@@ -114,7 +120,7 @@ gulp.task('images', function() {
 });
 
 // Build dist folder
-gulp.task('dist', ['vendorjs', 'js', 'sass', 'vendorcss', 'fonts', 'index', 'views', 'images']);
+gulp.task('dist', ['vendorjs', 'js', 'sass', 'vendorcss', 'fonts', 'index', 'favicon', 'views', 'images']);
 
 // Delete the dist directory
 gulp.task('clean:dist', function() {
