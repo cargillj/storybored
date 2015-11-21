@@ -1,3 +1,24 @@
+<script type="text/ng-template" id="forgotModal.html">
+  <div class="modal-header">
+    <div class="modal-title"><h4>Recover username/password</h4></div>
+  </div>
+  <form name="forgotForm" id="forgotForm" role="form">
+    <div class="modal-body">
+    <div class="alert alert-success" role="alert" ng-show="forgotFormSuccess">{{ message }}</div>
+    <div class="alert alert-danger" role="alert" ng-show="forgotFormError"><strong>Sorry, </strong>{{ message }}</div>
+      <div class="help-block">Provide your account's email address so we can send you your credentials.</div>
+      <div class="form-group" ng-class="{'has-error': forgotForm.email.$dirty && forgotForm.email.$error.required}">
+        <label for="email">Email address</label>
+        <input type="email" class="form-control" name="email" id="email" placeholder="Email" ng-model="email" ng-required="true" required>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" ng-click="submit(email)">Submit</button>
+      <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
+    </div>
+  </form>
+</script>
+
 <div class="container">
   <div class="col-xs-12">
     <h4>Login</h4>
@@ -16,6 +37,7 @@
         <span ng-show="login.password.$dirty && login.password.$error.required" class="help-block">Password is required</span>
       </div>
       <button type="submit" ng-disabled="login.$invalid || dataLoading" class="btn btn-primary" ng-click="vm.login()">Login</button>
+      <button type="button" class="btn btn-default" ng-click="open()">Forgot your username/password?</button>
     </div>
   </form>
 </div>

@@ -360,3 +360,82 @@ exports.checkInvitation = function(req, res) {
     });
   });
 }
+
+exports.forgotten = function(req, res) {
+  var results = {};
+  var email = req.params.email;
+  var username = "";
+  var newPwd = "";
+  pg.connect(connectionString, function(err, client, done) {
+    var userQuery = client.query("SELECT username FROM sb.users WHERE email = $1 LIMIT 1;", [email]);
+    userQuery.on('error', function(err) {
+      console.log(err);
+      results.success = false;
+      results.err = err;
+      return res.json(results);
+    });
+    userQuery.on('row', function(row) {
+      username = row.username;
+      results.exists = true;
+    });
+    userQuery.on('end', function() {
+      if(username == "") {
+        results.exists = false;
+        return res.json(results);
+      } else {
+        // make new password
+        var newPwdQuery = client.query("SELECT random_slug();");
+        newPwdQuery.on('row', function(row) {
+          newPwd = row.random_slug;
+        });
+        newPwdQuery.on('error', function(err) {
+          console.log(err);
+          results.success = false;
+          return res.json(results);
+        });
+        newPwdQuery.on('end', function() {
+          // set new password
+          var pwdQuery = client.query("UPDATE sb.users SET password=crypt($1, gen_salt('bf')) WHERE email=$2;", [newPwd, email]);
+          pwdQuery.on('error', function(err) {
+            console.log(err);
+            results.success = false;
+            results.err = err;
+            return res.json(results);
+          });
+          pwdQuery.on('end', function() {
+            client.end();
+
+            // send email with credentials
+            var mailgun = new Mailgun({apiKey: mg_key, domain: mg_domain});
+            var mail = mailcomposer({
+              from: mg_from,
+              to: email,
+              subject: 'Request for Account Credentials',
+              text: 'Forgotten password/username request\nWe received a request to send you your account credentials. For security, we have reset your password.\nYour current credentials are:\n<br>username: '+username+'\npassword: '+newPwd+'\n\nThanks for using StoryBored,\nStoryBored Team',
+              html: '<h1>Forgotten password/username request</h1><p>We received a request to send you your account credentials. For security, we have reset your password.<br>Your current credentials are:<br><strong>username:</strong> '+username+'<br><strong>password:</strong> '+newPwd+'<br><br><strong>Thanks for using StoryBored,<br>StoryBored Team</strong></p>'
+            });
+
+            mail.build(function(mailBuildError, message) {
+
+              var dataToSend = {
+                to: email,
+                message: message.toString('ascii')
+              };
+
+              mailgun.messages().sendMime(dataToSend, function(sendError, body) {
+                if (sendError) {
+                  console.log(sendError);
+                  results.success = false;
+                  return res.json(results);
+                } else {
+                  results.success = true;
+                  return res.json(results);
+                }
+              });
+            });
+          });
+        });
+      }
+    });
+  });
+}

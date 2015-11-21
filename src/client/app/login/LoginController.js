@@ -7,10 +7,18 @@
   .module('sbApp')
   .controller('LoginController', LoginController);
 
-  LoginController.$inject = ['$location', '$window', 'AuthenticationService', 'UserService'];
-  function LoginController($location, $window, AuthenticationService, UserService) { 
+  LoginController.$inject = ['$scope', '$location', '$window', '$uibModal', 'AuthenticationService', 'UserService'];
+  function LoginController($scope, $location, $window, $uibModal, AuthenticationService, UserService) { 
     var vm = this;
     vm.login = login;
+
+    $scope.open = function() {  
+      var modalInstance = $uibModal.open({
+        animation: true,
+        templateUrl: 'forgotModal.html',
+        controller: 'ForgotModalController'
+      });
+    }
 
     function login() {
       AuthenticationService.Login(vm.username, vm.password, function (response) {

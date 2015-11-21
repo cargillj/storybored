@@ -59,6 +59,7 @@ app.put('/api/users/password/', upload.array(), user.updatePassword);
 app.put('/api/users/profile/:user_id', user.updateProfile);
 app.put('/api/users/invitation/', upload.array(), user.sendInvitation);
 app.get('/api/users/invitation/:key', user.checkInvitation);
+app.put('/api/public/users/forgotten/:email', user.forgotten);
 
 // Article API
 app.post('/api/articles', upload.array(), article.create);

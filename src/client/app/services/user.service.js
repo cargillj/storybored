@@ -20,6 +20,7 @@
 		service.Delete = Delete;
     service.SendInvitation = SendInvitation;
     service.CheckInvitation = CheckInvitation;
+    service.Forgotten = Forgotten;
 
 		return service;
 
@@ -69,6 +70,10 @@
 
     function CheckInvitation(key) {
       return $http.get('/api/users/invitation/'+key).then(handleSuccess, handleError('Error checking invitation'));
+    }
+
+    function Forgotten(email) {
+      return $http.put('/api/public/users/forgotten/'+email).then(handleSuccess, handleError('Error sending forgotten credentials email'));
     }
 
 		// Private functions

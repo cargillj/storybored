@@ -26,11 +26,27 @@ CREATE TABLE sb.users (
     password TEXT NOT NULL,
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
-    email TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
     since TIMESTAMP DEFAULT now(),
     profile_img TEXT DEFAULT 'img/profiles/default.jpg'
 );
 ```
+### `random_slug()` function
+A function we use to generate random passwords when a user forgets theirs.
+```sql
+CREATE OR REPLACE FUNCTION random_slug()  
+RETURNS text  
+AS  
+$$ SELECT CAST(
+     regexp_replace(
+       encode(
+         gen_random_bytes(6), 'base64'),
+         '[/=+]',
+         '-', 'g'
+   ) AS text);$$
+LANGUAGE SQL
+```
+Credit goes to [Kilkelly](http://blog.00null.net/easily-generating-random-strings-in-postgresql/)
 
 ## Invitations Table
 - **key**: distinct uuid to identify an invitation 
