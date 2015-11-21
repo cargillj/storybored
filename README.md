@@ -1,7 +1,7 @@
 # StoryBored
 ### A *simple* blog-type web-application
 ---
-[StoryBored](http://ec2-52-89-99-183.us-west-2.compute.amazonaws.com:3000/) aims to provide an original, current, and unbiased take on pop-culture phenomena such as movies, television, comics, and music.
+[StoryBored](storybored.news) aims to provide an original, current, and unbiased take on pop-culture phenomena such as movies, television, comics, and music.
 
 This web application is built upon the PEAN stack: PostgreSQL, Express, Angular, and Node.
 
