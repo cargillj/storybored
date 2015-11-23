@@ -23,8 +23,8 @@
     }
   });
 
-  ArticleController.$inject = ['$routeParams', 'ArticleService'];
-  function ArticleController($routeParams, ArticleService) {
+  ArticleController.$inject = ['$scope', '$routeParams', 'ArticleService'];
+  function ArticleController($scope, $routeParams, ArticleService) {
     var article_id = $routeParams.article_id;
     var vm = this;
     vm.disqusShortname = "storybored";
@@ -42,6 +42,8 @@
           vm.date = response.data.article.date;
           vm.author = response.data.article.author;
           vm.role = response.data.article.role;
+          // update metadata
+          $scope.$emit('newPageLoaded', {'title': 'StoryBored - '+vm.title, 'description': vm.byline, 'img': vm.img});
         } else {
           console.log(response.data.message);
         }

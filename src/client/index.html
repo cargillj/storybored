@@ -1,26 +1,27 @@
 <!DOCTYPE HTML>
-<html lang="en" data-ng-app="sbApp">
+<html lang="en" data-ng-app="sbApp" data-ng-controller="indexController">
 <head>
 	<!-- meta -->
 	<meta charset="utf-8">
 	<base href="/">
-	<title>StoryBored</title>
-	<meta name="description" content="StoryBored aims to provide an original, current, and unbiased take on pop-culture phenomena such as movies, television, comics, and music.">
+	<title>{{ metadata.title }}</title>
+	<meta title="{{ metadata.title }}" ng-if="metadata.title"/>
+	<meta description="{{ metadata.description }}" ng-if="metadata.description">
 	<meta charset="utf-8"/>
 
 	<!-- open graph -->
-	<meta property="og:title" content="StoryBored"/>
+	<meta property="og:title" content="{{ metadata.title }}" ng-if="metadata.title"/>
 	<meta property="og:type" content="website"/>
 	<meta property="og:image" content="img/storybored.jpg"/>
 	<meta property="og:url" content="storybored.news"/>
-	<meta property="og:description" content="StoryBored aims to provide an original, current, and unbiased take on pop-culture phenomena such as movies, television, comics, and music."/>
+	<meta property="og:description" content="{{ metadata.description }}" ng-if="metadata.description"/>
 	
 	<!-- build:css -->
 	<!-- endbuild -->
 	<!-- build:theme -->
 	<!-- endbuild -->
 </head>
-<body data-ng-controller="indexController">
+<body>
 	<!-- build:js -->
 	<!-- endbuild -->
 	<header>

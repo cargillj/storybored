@@ -11,6 +11,17 @@
 
 	indexController.$inject = ['$scope', '$cookies', '$window', '$location', 'AuthenticationService'];
 	function indexController($scope, $cookies, $window, $location, AuthenticationService) {
+		$scope.metadata = {
+			'title': 'StoryBored',
+			'description': 'StoryBored aims to provide an original, current, and unbiased take on pop-culture phenomena such as movies, television, comics, and music.',
+			'img': 'img/storybored.jpg'
+		};
+
+		// whenever a controller emits a newPageLoaded event, the metadata is updated
+		$scope.$on('newPageLoaded', function(event, metadata) {
+			$scope.metadata = metadata;
+		});
+
 		// Check saved theme
 		switch(localStorage.theme) {
 			case null:
