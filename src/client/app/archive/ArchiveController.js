@@ -7,6 +7,13 @@
 
   ArchiveController.$inject = ['ArticleService'];
   function ArchiveController(ArticleService) {
+    $scope.$emit('newPageLoaded', {
+      'title': 'StoryBored - Archive',
+      'type': 'website',
+      'description': 'StoryBored aims to provide an original, current, and unbiased take on pop-culture phenomena such as movies, television, comics, and music.',
+      'img': 'http://storybored.news/img/storybored.jpg',
+      'url': 'http://storybored.news/archive'
+    });
     var vm = this;
     vm.currentPage = 1;
     vm.articlesPerPage = 5;

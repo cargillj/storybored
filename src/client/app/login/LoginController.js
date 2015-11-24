@@ -8,7 +8,14 @@
   .controller('LoginController', LoginController);
 
   LoginController.$inject = ['$scope', '$location', '$window', '$uibModal', 'AuthenticationService', 'UserService'];
-  function LoginController($scope, $location, $window, $uibModal, AuthenticationService, UserService) { 
+  function LoginController($scope, $location, $window, $uibModal, AuthenticationService, UserService) {
+    $scope.$emit('newPageLoaded', {
+      'title': 'StoryBored - Login',
+      'type': 'website',
+      'description': 'StoryBored aims to provide an original, current, and unbiased take on pop-culture phenomena such as movies, television, comics, and music.',
+      'img': 'http://storybored.news/img/storybored.jpg',
+      'url': 'http://storybored.news/login'
+    });
     var vm = this;
     vm.login = login;
 

@@ -9,6 +9,13 @@
 
   RegisterController.$inject = ['$location', 'AuthenticationService', 'UserService'];
   function RegisterController($location, AuthenticationService, UserService) {
+    $scope.$emit('newPageLoaded', {
+      'title': 'StoryBored - register',
+      'type': 'website',
+      'description': 'StoryBored aims to provide an original, current, and unbiased take on pop-culture phenomena such as movies, television, comics, and music.',
+      'img': 'http://storybored.news/img/storybored.jpg',
+      'url': 'http://storybored.news/register'
+    });
     var vm = this;
     vm.invKey = {};
     vm.checkKey = checkKey;
