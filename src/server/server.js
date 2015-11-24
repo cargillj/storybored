@@ -1,7 +1,8 @@
 // Set up
 require('./env.js');
 var connectionString = process.env['CONNECTION_STRING']
-  , jwtSecret = process.env['JWT_SECRET'];
+  , jwtSecret = process.env['JWT_SECRET']
+  , prToken = process.env['PRERENDER_TOKEN'];
 
 var express = require('express')
 	, site = require('./routes/site')
@@ -23,7 +24,7 @@ var express = require('express')
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(prerender.set('prerenderToken', 'XgLSDJwSzvmxD52it9WI'));
+app.use(prerender.set('prerenderToken', prToken));
 app.use('/', express.static(__dirname + '../../../dist/'));
 app.use('/dashboard', express.static(__dirname + '../../../dist/'));
 app.use('/articles/*', express.static(__dirname + '../../../dist/'));

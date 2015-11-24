@@ -99,6 +99,7 @@ process.env['JWT_SECRET'] = "your_jwt_secret";
 process.env['MAILGUN_API_KEY'] = "your_mailgun_api_key";
 process.env['MAILGUN_DOMAIN'] = "your_mailgun_domain";
 process.env['MAILGUN_FROM'] = "your_mailgun_email@domain";
+process.env['PRERENDER_TOKEN'] = "your_prerender_token";
 ```
 
 ### Run the Server
