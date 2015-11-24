@@ -13,6 +13,7 @@
 	function indexController($scope, $cookies, $window, $location, AuthenticationService) {
 		$scope.metadata = {
 			'title': 'StoryBored',
+			'type': 'website',
 			'description': 'StoryBored aims to provide an original, current, and unbiased take on pop-culture phenomena such as movies, television, comics, and music.',
 			'img': 'img/storybored.jpg'
 		};
