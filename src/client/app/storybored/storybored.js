@@ -15,7 +15,8 @@
 			'title': 'StoryBored',
 			'type': 'website',
 			'description': 'StoryBored aims to provide an original, current, and unbiased take on pop-culture phenomena such as movies, television, comics, and music.',
-			'img': 'http://storybored.news/img/storybored.jpg'
+			'img': 'http://storybored.news/img/storybored.jpg',
+			'url': 'http://storybored.news'
 		};
 
 		// whenever a controller emits a newPageLoaded event, the metadata is updated

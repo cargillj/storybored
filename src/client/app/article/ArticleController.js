@@ -29,7 +29,7 @@
     var vm = this;
     vm.disqusShortname = "storybored";
     vm.disqusId = article_id;
-    vm.disqusUrl = "http://25.14.102.22:3000/articles/"+article_id;
+    vm.disqusUrl = "http://storybored.news/articles/"+article_id;
 
     ArticleService.GetArticleById(article_id)
       .then(function(response) {
@@ -43,7 +43,7 @@
           vm.author = response.data.article.author;
           vm.role = response.data.article.role;
           // update metadata
-          $scope.$emit('newPageLoaded', {'title': 'StoryBored - '+vm.title, 'description': vm.byline, 'img': vm.img, 'type': 'article', 'author': vm.author});
+          $scope.$emit('newPageLoaded', {'title': 'StoryBored - '+vm.title, 'description': vm.byline, 'img': vm.img, 'type': 'article', 'author': vm.author, 'url': 'storybored.news/articles/'+article_id});
         } else {
           console.log(response.data.message);
         }
