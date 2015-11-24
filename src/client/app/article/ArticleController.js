@@ -43,7 +43,7 @@
           vm.author = response.data.article.author;
           vm.role = response.data.article.role;
           // update metadata
-          $scope.$emit('newPageLoaded', {'title': 'StoryBored - '+vm.title, 'description': vm.byline, 'img': vm.img, 'type': 'article', 'author': vm.author, 'url': 'storybored.news/articles/'+article_id});
+          $scope.$emit('newPageLoaded', {'title': 'StoryBored - '+vm.title, 'description': vm.byline, 'img': vm.img, 'type': 'article', 'author': vm.author, 'url': 'http://storybored.news/articles/'+article_id});
         } else {
           console.log(response.data.message);
         }
