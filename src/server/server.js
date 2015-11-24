@@ -8,6 +8,7 @@ var express = require('express')
 	, user = require('./routes/user')
   , article = require('./routes/article')
   , cloudinary = require('./routes/cloudinary')
+  , sitemap = require('./routes/sitemap')
 	, router = express.Router()
 	, bodyParser = require('body-parser')
 	, multer = require('multer')
@@ -76,6 +77,9 @@ app.get('/api/public/articles/titles/:username', article.getTitles);
 
 // Cloudinary API
 app.post('/api/cloudinary/:folder', cloudinary.upload);
+
+// Sitemap
+app.get('/sitemap.xml', sitemap.sitemap);
 
 // Listen (start app with 'node server.js')
 app.listen(3000);
