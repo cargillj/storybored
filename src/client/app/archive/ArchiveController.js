@@ -5,8 +5,8 @@
     .module('sbApp')
     .controller('ArchiveController', ArchiveController);
 
-  ArchiveController.$inject = ['ArticleService'];
-  function ArchiveController(ArticleService) {
+  ArchiveController.$inject = ['$scope', 'ArticleService'];
+  function ArchiveController($scope, ArticleService) {
     $scope.$emit('newPageLoaded', {
       'title': 'StoryBored - Archive',
       'type': 'website',

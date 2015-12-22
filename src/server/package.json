@@ -23,6 +23,7 @@
     "multiparty": "^4.1.2",
     "pg": "^4.4.2",
     "prerender-node": "^2.1.0",
+    "request": "^2.67.0",
     "sitemap": "^1.4.1"
   }
 }
