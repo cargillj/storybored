@@ -85,7 +85,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-10">
+          <div class="col-sm-7">
             <div class="form-group" ng-class="{'has-error': (articleForm.img.$error.required || articleForm.img.$error.url) && articleForm.img.$touched}">
               <label class="control-label" for="imageUrl">Article Image URL</label>
               <input name="img" type="url" id="img" class="form-control" ng-model="article.img" required="">
@@ -100,6 +100,12 @@
                 <option ng-repeat="tint in tints track by $index">{{ tint }}</option>
               </select>
               <span class="help-block" ng-show="articleForm.img_tint.$error.required && articleForm.img_tint.$touched">Please select an image tint</span>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <label for="img_preview" class="control-label">Tint Preview</label>
+            <div class="img-responsive" name="img_preview">
+              <div id="edit" class="ratio tint {{ article.img_tint }}"></div>
             </div>
           </div>
         </div>

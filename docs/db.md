@@ -100,7 +100,7 @@ CREATE TABLE sb.user_roles (
 ## Image Tints
 A tint type for use in the `sb.articles` table.
 ```sql
-CREATE TYPE tint AS ENUM ('red', 'green', 'blue', 'pink');
+CREATE TYPE tint AS ENUM ('red', 'green', 'blue', 'pink', 'orange', 'lime-green', 'light-blue', 'purple', 'yellow', 'mint');
 ```
 ## Articles
 - **article_id**: the article's id
