@@ -13,9 +13,10 @@ This web application is built upon the PEAN stack: PostgreSQL, Express, Angular,
 - Theme toggle
 - Admin system
 - User Registration
+- Forgotten password/username emails
 
 ### Planned Features
-- Forgotten password/username emails
+- TBA
 
 ## Getting Started
 ---
