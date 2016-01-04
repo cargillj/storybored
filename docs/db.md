@@ -110,6 +110,7 @@ CREATE TYPE tint AS ENUM ('red', 'green', 'blue', 'pink', 'orange', 'lime-green'
 - **body**: the article content (in markdown)
 - **img_tint**: tint that corresponds to css classes for the article image
 - **date**: the date the article was created
+- **rate**: a rating between 1-5 (optional)
 - **textsearch**: a searchable vector of the article's title, byline, and body
 ```sql
 CREATE TABLE sb.articles (
@@ -120,6 +121,7 @@ CREATE TABLE sb.articles (
   body TEXT NOT NULL,
   img_tint tint,
   date TIMESTAMP DEFAULT now(),
+  rate smallint DEFAULT NULL,
   textsearch to_tsvector('english', coalesce(title,'') || ' ' || coalesce(byline, '') || ' ' || coalesce(body, ''))
 );
 ```

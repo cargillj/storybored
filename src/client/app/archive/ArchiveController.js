@@ -21,6 +21,8 @@
     vm.upper = vm.articlesPerPage*(vm.currentPage);
     vm.search = search;
     vm.pageChanged = pageChanged;
+    vm.max = 5;
+    vm.isReadonly = true;
 
     function search(textsearch, username, order) {
       // check if we are doing a new search

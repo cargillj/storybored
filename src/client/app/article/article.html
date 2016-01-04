@@ -16,6 +16,9 @@
   <div class="row">
     <div class="col-xs-12">
       <div ng-bind-html="vm.body"></div>
+      <div ng-if="vm.rate">
+        <span><strong>Final Verdict: </strong> </span><uib-rating ng-model="vm.rate" max="vm.max" readonly="vm.isReadonly" state-on="'fa fa-star'" state-off="'fa fa-star-o'" on-leave="overStar = null" aria-labelledby="default-rating"></uib-rating>
+      </div>
     </div>
   </div>
   <div class="row">

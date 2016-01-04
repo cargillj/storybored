@@ -30,6 +30,8 @@
     vm.disqusShortname = "storybored";
     vm.disqusId = article_id;
     vm.disqusUrl = "http://storybored.news/articles/"+article_id;
+    vm.max = 5;
+    vm.isReadonly = true;
 
     ArticleService.GetArticleById(article_id)
       .then(function(response) {
@@ -42,6 +44,7 @@
           vm.date = response.data.article.date;
           vm.author = response.data.article.author;
           vm.role = response.data.article.role;
+          vm.rate = response.data.article.rate;
           // update metadata
           $scope.$emit('newPageLoaded', {'title': vm.title, 'description': vm.byline, 'img': vm.img, 'type': 'article', 'author': vm.author, 'url': 'http://storybored.news/articles/'+article_id});
         } else {

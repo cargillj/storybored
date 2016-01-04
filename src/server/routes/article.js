@@ -1,7 +1,9 @@
 // article.js
 var pg = require('pg')
   , connectionString = process.env['CONNECTION_STRING']
-  , jwt = require('jsonwebtoken');
+  , jwt = require('jsonwebtoken')
+  , request = require('request')
+  , prToken = process.env['PRERENDER_TOKEN'];
 
 // Add article to database
 exports.create = function(req, res) {
@@ -9,7 +11,7 @@ exports.create = function(req, res) {
   var article = req.body;
 
   pg.connect(connectionString, function(err, client, done) {
-    articleQuery = client.query("INSERT INTO sb.articles (user_id, title, byline, body, img, img_tint) VALUES ($1, $2, $3, $4, $5, $6) RETURNING article_id;", [article.user_id, article.title, article.byline, article.body, article.img, article.img_tint]);
+    articleQuery = client.query("INSERT INTO sb.articles (user_id, title, byline, body, img, img_tint, rate) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING article_id;", [article.user_id, article.title, article.byline, article.body, article.img, article.img_tint, article.rate]);
     articleQuery.on('error', function(err) {
       console.log(err);
       results.success = false;
@@ -41,7 +43,7 @@ exports.update = function(req, res) {
   var article = req.body;
 
   pg.connect(connectionString, function(err, client, done) {
-    articleQuery = client.query("UPDATE sb.articles SET (title, byline, body, img, img_tint) = ($1, $2, $3, $4, $5) WHERE article_id = $6;", [article.title, article.byline, article.body, article.img, article.img_tint, article.article_id]);
+    articleQuery = client.query("UPDATE sb.articles SET (title, byline, body, img, img_tint, rate) = ($1, $2, $3, $4, $5, $6) WHERE article_id = $7;", [article.title, article.byline, article.body, article.img, article.img_tint, article.rate, article.article_id]);
     articleQuery.on('error', function(err) {
       console.log(err);
       results.success = false;
@@ -82,7 +84,7 @@ exports.getById = function(req, res) {
   var article_id = req.params.article_id;
 
   pg.connect(connectionString, function(err, client, done) {
-    articleQuery = client.query("SELECT sb.articles.article_id as article_id, sb.articles.title as title, sb.articles.byline as byline, sb.articles.body as body, sb.articles.img as img, sb.articles.img_tint as img_tint, sb.articles.date as date, sb.users.username as author, sb.roles.role_name as role FROM sb.articles, sb.users, sb.user_roles, sb.roles WHERE sb.articles.user_id = sb.users.user_id AND sb.user_roles.role_id = sb.roles.role_id AND sb.user_roles.user_id = sb.articles.user_id AND article_id=$1;", [article_id]);
+    articleQuery = client.query("SELECT sb.articles.article_id as article_id, sb.articles.title as title, sb.articles.byline as byline, sb.articles.body as body, sb.articles.img as img, sb.articles.img_tint as img_tint, sb.articles.date as date, sb.articles.rate as rate, sb.users.username as author, sb.roles.role_name as role FROM sb.articles, sb.users, sb.user_roles, sb.roles WHERE sb.articles.user_id = sb.users.user_id AND sb.user_roles.role_id = sb.roles.role_id AND sb.user_roles.user_id = sb.articles.user_id AND article_id=$1;", [article_id]);
     articleQuery.on('error', function(err) {
       results.success = false;
       results.err = err;
@@ -106,7 +108,7 @@ exports.getRecent = function(req, res) {
   var n = req.params.n;
 
   pg.connect(connectionString, function(err, client, done) {
-    recentQuery = client.query("SELECT sb.articles.article_id as article_id, sb.articles.title as title, sb.articles.byline as byline, sb.articles.img as img, sb.articles.img_tint as img_tint, sb.articles.date as date, sb.users.username as author FROM sb.articles, sb.users WHERE sb.articles.user_id = sb.users.user_id ORDER BY date DESC LIMIT $1;", [n]);
+    recentQuery = client.query("SELECT sb.articles.article_id as article_id, sb.articles.title as title, sb.articles.byline as byline, sb.articles.img as img, sb.articles.img_tint as img_tint, sb.articles.date as date, sb.articles.rate as rate, sb.users.username as author FROM sb.articles, sb.users WHERE sb.articles.user_id = sb.users.user_id ORDER BY date DESC LIMIT $1;", [n]);
     recentQuery.on('error', function(err) {
       results.success = false;
       results.err = err;
@@ -184,7 +186,7 @@ exports.archive = function(req, res) {
   }
   
   pg.connect(connectionString, function(err, client, done) {
-    var archiveQuery = client.query("SELECT sb.articles.article_id as article_id, sb.articles.title as title, sb.articles.byline as byline, sb.articles.img as img, sb.articles.date as date, sb.users.username as author FROM sb.articles, sb.users WHERE sb.articles.user_id = sb.users.user_id " + textsearch + username + " ORDER BY date " + order + " LIMIT " + limit + " OFFSET " + offset + ";");
+    var archiveQuery = client.query("SELECT sb.articles.article_id as article_id, sb.articles.title as title, sb.articles.byline as byline, sb.articles.img as img, sb.articles.date as date, sb.articles.rate as rate, sb.users.username as author FROM sb.articles, sb.users WHERE sb.articles.user_id = sb.users.user_id " + textsearch + username + " ORDER BY date " + order + " LIMIT " + limit + " OFFSET " + offset + ";");
     archiveQuery.on('error', function(err) {
       console.log(err);
       results.success = false;

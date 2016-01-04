@@ -30,6 +30,8 @@
     var article = this;
     this.body = '';
     article.author = $rootScope.globals.currentUser.username;
+    $scope.max = 5;
+    $scope.isReadonly = false;
     $scope.createArticle = createArticle;
 
     $scope.$watch('article.body', function(current, original) {

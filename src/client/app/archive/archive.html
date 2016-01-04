@@ -34,8 +34,11 @@
         <img class="img-responsive" ng-src="{{article.img}}">
       </div>
       <div class="col-xs-9">
-          <h3>{{ article.title }} <small>by {{ article.author }}<small> on {{ article.date | date:'longDate' }}</small></small></h3>
-          <p>{{ article.byline }}</p> 
+        <h3>{{ article.title }} <small>by {{ article.author }}<small> on {{ article.date | date:'longDate' }}</small></small></h3>
+        <p>{{ article.byline }}</p>
+        <div ng-if="article.rate">
+          <uib-rating ng-model="article.rate" max="vm.max" readonly="vm.isReadonly" state-on="'fa fa-star'" state-off="'fa fa-star-o'" on-leave="overStar = null" aria-labelledby="default-rating"></uib-rating>
+        </div> 
       </div>
     </a>
   </div>

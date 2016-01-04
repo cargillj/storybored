@@ -29,6 +29,8 @@
   function EditArticleFormController($rootScope, $scope, $http, ArticleService) {
     var article = this;
     article.markdownBody = "";
+    $scope.max = 5;
+    $scope.isReadonly = false;
     $scope.editArticle = editArticle;
     $scope.deleteArticle = deleteArticle;
     $scope.search = "";
