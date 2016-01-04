@@ -10,7 +10,11 @@
     var vm = this;
     vm.files = [];
     vm.folder = "";
+    vm.folder_url = "";
     vm.uploadFiles = uploadFiles;
+    $scope.$watch('vm.folder', function(current) {
+      vm.folder_url = encodeURIComponent(current);
+    });
 
     function uploadFiles(files, folder) {
       CloudinaryService.UploadImages(files, folder)

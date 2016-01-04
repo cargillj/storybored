@@ -44,7 +44,7 @@
                       <th>#</th>
                       <th>Image</th>
                       <th>Filename</th>
-                      <th>Upload url</th>
+                      <th>Markdown Image</th>
                     </tr>
                   </thead>
                   <tbody ng-repeat="file in vm.files track by $index">
@@ -54,8 +54,8 @@
                       <td>{{ file.name }}</td>
                       <td>
                         <div class="input-group">
-                          <input type="url" name="url" class="form-control" value="http://res.cloudinary.com/storybored/image/upload/{{ vm.folder }}/{{ file.name }}" readonly>
-                          <span class="input-group-btn"><button class="btn btn-primary" type="button" clipboard text="'http://res.cloudinary.com/storybored/image/upload/'+vm.folder+'/'+file.name" ng-disabled="cloudinaryForm.$invalid">Copy</button></span>
+                          <input type="url" name="url" class="form-control" value="![your alt text](http://res.cloudinary.com/storybored/image/upload/{{ vm.folder_url }}/{{ file.name }})" readonly>
+                          <span class="input-group-btn"><button class="btn btn-primary" type="button" clipboard text="'![your alt text](http://res.cloudinary.com/storybored/image/upload/'+vm.folder_url+'/'+file.name+')'" ng-disabled="cloudinaryForm.$invalid">Copy</button></span>
                         </div>
                       </td>
                     </tr>
