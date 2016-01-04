@@ -16,16 +16,27 @@
   <div class="row">
     <div class="col-xs-12">
       <div ng-bind-html="vm.body"></div>
-      <div ng-if="vm.rate">
-        <span><strong>Final Verdict: </strong> </span><uib-rating ng-model="vm.rate" max="vm.max" readonly="vm.isReadonly" state-on="'fa fa-star'" state-off="'fa fa-star-o'" on-leave="overStar = null" aria-labelledby="default-rating"></uib-rating>
-      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6" ng-if="vm.rate">
+      <span><strong>Final Verdict: </strong> </span><uib-rating ng-model="vm.rate" max="vm.max" readonly="vm.isReadonly" state-on="'fa fa-star'" state-off="'fa fa-star-o'" on-leave="overStar = null" aria-labelledby="default-rating"></uib-rating>
+    </div>
+    <div class="col-xs-2">
+      <span fb-like="vm.url"></span>
+    </div>
+    <div class="col-xs-2">
+      <span tweet="vm.title" tweet-url="vm.url"></span>
+    </div>
+    <div class="col-xs-2">
+      <span google-plus="vm.url"></span>
     </div>
   </div>
   <div class="row">
     <div class="col-xs-12">
       <dir-disqus disqus-shortname="{{ vm.disqusShortname }}"
          disqus-identifier="{{ vm.disqusId }}"
-         disqus-url="{{ vm.disqusUrl }}"
+         disqus-url="{{ vm.url }}"
          disqus-title="{{ vm.title }}">
       </dir-disqus>
     </div>

@@ -29,7 +29,7 @@
     var vm = this;
     vm.disqusShortname = "storybored";
     vm.disqusId = article_id;
-    vm.disqusUrl = "http://storybored.news/articles/"+article_id;
+    vm.url = "http://storybored.news/articles/"+article_id;
     vm.max = 5;
     vm.isReadonly = true;
 

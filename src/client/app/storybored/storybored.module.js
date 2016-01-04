@@ -13,6 +13,7 @@
       'ngSanitize',
       'monospaced.elastic',
       'angular-clipboard',
-      'angularUtils.directives.dirDisqus'
+      'angularUtils.directives.dirDisqus',
+      'angulike'
     ]);
 })();

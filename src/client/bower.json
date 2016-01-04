@@ -32,7 +32,8 @@
     "angular-elastic": "~2.5.1",
     "bootstrap-css-only": "~3.3.5",
     "angular-clipboard": "~1.1.1",
-    "angularUtils-disqus": "angular-utils-disqus#~0.4.0"
+    "angularUtils-disqus": "angular-utils-disqus#~0.4.0",
+    "angulike": "~1.2.0"
   },
   "description": "",
   "homepage": "",
