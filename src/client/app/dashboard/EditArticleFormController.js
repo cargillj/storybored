@@ -73,6 +73,7 @@
               article.markdownBody = response.data.article.body;
               article.img = response.data.article.img;
               article.img_tint = response.data.article.img_tint;
+              article.rate = response.data.article.rate;
               $scope.articleForm.success = false;
               $scope.articleForm.error = false;
             } else {
