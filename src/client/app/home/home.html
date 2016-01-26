@@ -1,6 +1,6 @@
 <div class="container">
 	<div class="row">
-		<div class="col-xs-{{ vm.grid_widths[0][$index] }}" ng-repeat="article in vm.rows[0] track by $index">
+		<div class="col-xs-{{ vm.grid_widths_sm[0][$index] }} col-md-{{ vm.grid_widths_md[0][$index] }}" ng-repeat="article in vm.rows[0] track by $index">
 			<a href="/articles/{{ article.article_id }}" class="img-responsive">
 				<div class="ratio tint {{ article.img_tint }}" style="background-image:url({{ article.img }})" class="img-responsive">
 					<div class="author">{{ article.author }}</div>
@@ -13,7 +13,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-{{ vm.grid_widths[1][$index] }}" ng-repeat="article in vm.rows[1] track by $index">
+		<div class="col-xs-{{ vm.grid_widths_sm[1][$index] }} col-md-{{ vm.grid_widths_md[1][$index] }}" ng-repeat="article in vm.rows[1] track by $index">
 			<a href="/articles/{{ article.article_id }}" class="img-responsive">
 				<div class="ratio tint {{ article.img_tint }}" style="background-image:url({{ article.img }})" class="img-responsive">
 					<div class="author">{{ article.author }}</div>
@@ -26,7 +26,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-{{ vm.grid_widths[2][$index] }}" ng-repeat="article in vm.rows[2] track by $index">
+		<div class="col-xs-{{ vm.grid_widths_sm[2][$index] }} col-md-{{ vm.grid_widths_md[2][$index] }}" ng-repeat="article in vm.rows[2] track by $index">
 			<a href="/articles/{{ article.article_id }}" class="img-responsive">
 				<div class="ratio tint {{ article.img_tint }}" style="background-image:url({{ article.img }})" class="img-responsive">
 					<div class="author">{{ article.author }}</div>
