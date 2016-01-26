@@ -2,6 +2,7 @@
 <html lang="en" data-ng-app="sbApp" data-ng-controller="indexController">
 <head>
 	<!-- meta -->
+	<meta name="viewport" content="width=device-width, target-densitydpi=device-dpi">
 	<meta charset="utf-8">
 	<base href="/">
 	<title>{{ metadata.title }}</title>
@@ -16,7 +17,7 @@
 	<meta property="og:image" content="{{ metadata.img }}" ng-if="metadata.img"/>
 	<meta property="og:url" content="{{ metadata.url }}" ng-if="metadata.url"/>
 	<meta property="og:description" content="{{ metadata.description }}" ng-if="metadata.description"/>
-	
+
 	<!-- build:css -->
 	<!-- endbuild -->
 	<!-- build:theme -->
@@ -31,8 +32,8 @@
 				<div class="col-xs-4 col-sm-6">
 					<div id="logo"><a href="/">Story<span>Bored</span></a></div>
 				</div>
-				<div class="col-xs-7 col-sm-5"></div>
-				<div class="col-xs-1 col-sm-1">
+				<div class="col-xs-6 col-sm-5"></div>
+				<div class="col-xs-2 col-sm-1">
 			    <!-- Simple dropdown -->
 			    <span uib-dropdown uib-keyboard-nav dropdown-append-to-body>
 			      <a href id="simple-dropdown" uib-dropdown-toggle>
