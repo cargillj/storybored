@@ -1,0 +1,219 @@
+<div class="reference" data-ng-controller="ReferenceController as vm">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2>So You Want to Write an Article?</h2>
+      <p>
+        This guide will go over the basics of using StoryBored's editor, and much more!
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>The Basics of Markdown Editing</h3>
+      <p>
+        Our editor uses the <a href="">markdown</a> language to convert your
+        content into valid HTML to display in browsers without forcing you to
+        learn or use HTML. For a full cheatsheet go
+        <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">here</a>.
+      </p>
+      <h4>Headers</h4>
+      <p>
+        There are six levels of headers available in Markdown. To denote a
+        header, 1-6 hash characters are used at the start of a line.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-3">
+      <p>Input:</p>
+      <code># level 1<br>## level 2<br>### level 3<br>#### level 4<br>##### level 5<br>###### level 6<br>
+      </code>
+    </div>
+    <div class="col-xs-9">
+      <p>Output:</p>
+      <p>
+        <h1>Level 1</h1>
+        <h2>Level 2</h2>
+        <h3>Level 3</h3>
+        <h4>Level 4</h4>
+        <h5>Level 5</h5>
+        <h6>Level 6</h6>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>Blockquotes</h4>
+      Blockquotes are denoted at the beginning of a line via the ">" symbol.
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-3">
+      <p>Input:</p>
+      <code>
+        > Big Bada Boom -Bruce Willis
+      </code>
+    </div>
+    <div class="col-xs-9">
+      <p>Output:</p>
+      <p>
+        <blockquote>
+          Big Bada Boom -Bruce Willis
+        </blockquote>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>Lists</h4>
+      <p>
+        Markdown has ordered lists and unordered lists. To denote an ordered list
+        use the number of the item you are on and a period like so:
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-3">
+      <p>Input:</p>
+      <code>1. one<br>2. two<br>3. three</code>
+    </div>
+    <div class="col-xs-9">
+      <p>Output:</p>
+      <p>
+        <ol>
+          <li>one</li>
+          <li>two</li>
+          <li>three</li>
+        </ol>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <p>
+        An unordered list can be denoted using your choice of asterisks,
+        pluses, and hyphens at the beginning of a line.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-3">
+      <p>Input:</p>
+      <code>* one<br>* two<br>* three</code>
+    </div>
+    <div class="col-xs-9">
+      <p>Output:</p>
+      <p>
+        <ul>
+          <li>one</li>
+          <li>two</li>
+          <li>three</li>
+        </ul>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>Horizontal Rules</h4>
+      If you feel like being fancy and adding a line to separate parts of your
+      article horizontal rules can be added by placing three ore more hyphens,
+      asterisks, or underscores on a line by themselves.
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-3">
+      <p>Input:</p>
+      <code>text<br>---<br>more text</code>
+    </div>
+    <div class="col-xs-9">
+      <p>Output:</p>
+      <p>text<hr>more text</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>Putting Images on The Web in Your Articles</h3>
+      <p>
+        If the image you want to add to your article already exists on the web,
+        you can put it in your article in the following ways:<br>
+        <small><em>
+          Note that alt text is the text someone with a disability would
+          use to identify an image.
+        </em></small>
+      </p>
+      <h5>Inline Style</h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <p>Input:</p>
+      <code>![alt text](http://storybored.news/img/profiles/7f32861d-1177-4458-954f-d844d7cd3576.jpg)</code>
+    </div>
+    <div class="col-xs-6">
+      <p>Output:</p>
+      <img src="http://storybored.news/img/profiles/7f32861d-1177-4458-954f-d844d7cd3576.jpg" alt="alt text"/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h5>HTML Style</h5>
+      <p>
+        For more fine-grained control of the way your image is presented you may
+        want to use this way of includeing your images.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <p>Input:</p>
+      <code>&lt;img src="http://storybored.news/img/profiles/7f32861d-1177-4458-954f-d844d7cd3576.jpg" alt="alt text"/&gt;</code>
+    </div>
+    <div class="col-xs-6">
+      <p>Output:</p>
+      <img src="http://storybored.news/img/profiles/7f32861d-1177-4458-954f-d844d7cd3576.jpg" alt="alt text"/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h5>Scale image based on the width of the article:</h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <p>Input:</p>
+      <code>&lt;img class="img-responsive" src="http://storybored.news/img/profiles/7f32861d-1177-4458-954f-d844d7cd3576.jpg" alt="alt text"/&gt;</code>
+    </div>
+    <div class="col-xs-6">
+      <p>Output:</p>
+      <img class="img-responsive" src="http://storybored.news/img/profiles/7f32861d-1177-4458-954f-d844d7cd3576.jpg" alt="alt text"/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h5>Centering an image within your article:</h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <p>Input:</p>
+      <code>&lt;img class="img-responsive center-block" src="http://storybored.news/img/profiles/7f32861d-1177-4458-954f-d844d7cd3576.jpg" alt="alt text"/&gt;</code>
+    </div>
+    <div class="col-xs-6">
+      <p>Output:</p>
+      <img class="img-responsive center-block" src="http://storybored.news/img/profiles/7f32861d-1177-4458-954f-d844d7cd3576.jpg" alt="alt text"/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>Putting Images on the Web With Cloudinary</h3>
+      <p>
+        In the <code>Upload Images</code> tab on the dashboard, users have
+        the ability to upload images from their devices to Cloudinary, a
+        cloud-based content distribution network. Once uploaded, users can
+        access their images via a public url. In our system, when an image
+        is uploaded the column titled <strong>Markdown Image</strong> is
+        populated with a copy/pastable link ready for use within articles.
+      </p>
+    </div>
+  </div>
+</div>

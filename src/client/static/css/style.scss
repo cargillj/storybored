@@ -3,6 +3,8 @@
 @import 'partials/typography';
 @import 'partials/tint';
 
+$primary-blue: #337AB7;
+
 $header-height: 40px;
 
 body {
@@ -37,7 +39,7 @@ header {
 	z-index: 1;
 	#logo a:hover, #logo a:visited, #logo a:active,  #logo a:link {
 		text-decoration: none;
-		color: #337AB7;
+		color: $primary-blue;
 	}
 	.btn {
 		border: none;
@@ -50,11 +52,11 @@ header {
 }
 
 .modal-content a {
-	color: #337AB7;
+	color: $primary-blue;
 }
 
 .jumbotron {
-	background-color: #337AB7;
+	background-color: $primary-blue;
 	color: white;
 	hr {
 		margin: 0;
@@ -113,7 +115,7 @@ form {
 form, button {
 	font-family: arial;
 	a {
-		color: #337AB7;
+		color: $primary-blue;
 	}
 }
 
@@ -179,4 +181,11 @@ textarea {
 
 .archive_article:hover {
 	background-color: $light-gray;
+}
+
+.reference {
+	a {
+		color: $primary-blue;
+		text-decoration: none;
+	}
 }
