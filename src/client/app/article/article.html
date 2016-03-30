@@ -20,7 +20,7 @@
   </div>
   <div class="row">
     <div class="col-xs-4 col-sm-8 col-md-9" ng-if="vm.rate">
-      <div><strong>Final Verdict: </strong> </div><uib-rating ng-model="vm.rate" max="vm.max" readonly="vm.isReadonly" state-on="'fa fa-star'" state-off="'fa fa-star-o'" on-leave="overStar = null" aria-labelledby="default-rating"></uib-rating>
+      <div><strong>Final Verdict: <uib-rating ng-model="vm.rate" max="vm.max" readonly="vm.isReadonly" state-on="'fa fa-star'" state-off="'fa fa-star-o'" on-leave="overStar = null" aria-labelledby="default-rating"></uib-rating> {{vm.rate}} Stars</strong></div> 
     </div>
     <div class="col-xs-5 col-sm-2 col-md-2">
       <span fb-like="vm.url"></span>

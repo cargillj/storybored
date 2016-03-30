@@ -30,7 +30,7 @@
     vm.disqusShortname = "storybored";
     vm.disqusId = article_id;
     vm.url = "http://storybored.news/articles/"+article_id;
-    vm.max = 5;
+    vm.max = 10;
     vm.isReadonly = true;
 
     ArticleService.GetArticleById(article_id)

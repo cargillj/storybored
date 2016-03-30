@@ -48,7 +48,7 @@
                 <div class="col-sm-12">
                   <div id="htmlBody" ng-bind-html="article.body"></div>
                   <div ng-if="article.rate">
-                    <span><strong>Final Verdict: </strong> </span><uib-rating ng-model="article.rate" max="max" readonly="true" state-on="'fa fa-star'" state-off="'fa fa-star-o'" on-leave="overStar = null" aria-labelledby="default-rating"></uib-rating>
+                    <strong><span>Final Verdict: </span><uib-rating ng-model="article.rate" max="max" readonly="true" state-on="'fa fa-star'" state-off="'fa fa-star-o'" on-leave="overStar = null" aria-labelledby="default-rating"></uib-rating> {{article.rate}} Stars</strong>
                   </div>
                 </div>
               </div>
