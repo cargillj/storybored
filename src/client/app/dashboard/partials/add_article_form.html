@@ -31,7 +31,7 @@
                 <div class="col-sm-12">
                   <div id="htmlBody" ng-bind-html="htmlBody"></div>
                   <div ng-if="article.rate">
-                    <span><strong>Final Verdict: </strong> </span><uib-rating ng-model="article.rate" max="max" readonly="true" state-on="'fa fa-star'" state-off="'fa fa-star-o'" on-leave="overStar = null" aria-labelledby="default-rating"></uib-rating>
+                    <span><strong>Final Verdict: </span><uib-rating ng-model="article.rate" max="max" readonly="true" state-on="'fa fa-star'" state-off="'fa fa-star-o'" on-leave="overStar = null" aria-labelledby="default-rating"></uib-rating><span>{{article.rate}} Stars</strong></span>
                   </div>
                 </div>
               </div>
@@ -44,14 +44,14 @@
         <div class="alert alert-danger" role="alert" ng-show="articleForm.error"><strong>Sorry,</strong> {{ articleForm.msg }}</div>
         <span class="help-block">All fields required</span>
         <div class="row">
-          <div class="col-sm-6">
+          <div class="col-xs-6">
             <div class="form-group" ng-class="{'has-error': articleForm.title.$error.required && articleForm.title.$touched}">
               <label class="control-label" for="title">Title</label>
               <textarea name="title" rows="1" msd-elastic class="form-control" id="title" ng-model="article.title" required=""></textarea>
               <span class="help-block" ng-show="articleForm.title.$error.required && articleForm.title.$touched">Please input an article title</span>
             </div>
           </div>
-          <div class="col-sm-2">
+          <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="form-group">
               <label class="control-label" for="rate">Rating <small>(optional)</small></label>
               <div class="input-group">
@@ -108,7 +108,6 @@
         </div>
         <div class="row">
           <div class="col-xs-12">
-            <br>
             <input type="submit" class="btn btn-primary" ng-click="createArticle(article, articleForm.$valid)" value="submit" />
           </div>
         </div>
