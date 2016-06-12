@@ -46,7 +46,7 @@
 		$scope.toggleTheme = function() {
 			var lightTheme = $("#light-theme");
 			var darkTheme = $("#dark-theme");
-			
+
 			if(lightTheme.length == 0) {
 				setTheme(darkTheme, "light");
 			}

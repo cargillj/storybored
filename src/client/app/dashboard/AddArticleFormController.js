@@ -30,7 +30,7 @@
     var article = this;
     this.body = '';
     article.author = $rootScope.globals.currentUser.username;
-    $scope.max = 5;
+    $scope.max = 10;
     $scope.isReadonly = false;
     $scope.createArticle = createArticle;
 
@@ -61,7 +61,7 @@
               $scope.articleForm.msg = "error posting article";
             }
           })
-        
+
       } else {
         $scope.articleForm.success = false;
         $scope.articleForm.error = true;

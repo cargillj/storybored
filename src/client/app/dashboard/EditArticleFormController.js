@@ -29,7 +29,7 @@
   function EditArticleFormController($rootScope, $scope, $http, ArticleService) {
     var article = this;
     article.markdownBody = "";
-    $scope.max = 5;
+    $scope.max = 10;
     $scope.isReadonly = false;
     $scope.editArticle = editArticle;
     $scope.deleteArticle = deleteArticle;
@@ -92,7 +92,7 @@
         $('#edit.ratio').css("background-image", 'url("'+article.img+'")');
       }
     });
-    
+
     function editArticle(article, isValid) {
       if(isValid) {
         var new_article = $.extend({}, article);
@@ -110,7 +110,7 @@
               $scope.articleForm.msg = response.data.message;
             }
           });
-        
+
       } else {
         $scope.articleForm.success = false;
         $scope.articleForm.error = true;
