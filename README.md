@@ -32,13 +32,11 @@ Setup is very simple for those who would like to contribute.
 - [Run the Server](#run-the-server)
 
 ### Get Node.js
-<img src="http://mean.io/system/assets/img/logos/nodejs.png" height="40px">
 
 The storybored server is built upon node. So you first need to install the [node package manager](https://nodejs.org/en/) (npm) 
 for your operating system.
 
 ### Create a PostgreSQL Database
-<img src="http://www.datavirtuality.com/blog/wp-content/uploads/2015/08/postgresql-logo-624x110.png" height="40px">
 
 Storybored stores articles, user info, and comments in PostgreSQL tables. To work on StoryBored you will need to download a distribution of [postgreSQL](http://www.postgresql.org/download/) appropriate to your system. Secondly, you will need to [start a database](http://www.postgresql.org/docs/9.1/static/server-start.html) server with your distribution, and lastly, [create a database](http://www.postgresql.org/docs/9.1/static/server-start.html). As you set up your database take note to remember the hostname and port your database is being served from as we will need those later when setting up environment variables for the development server.
 
@@ -46,14 +44,12 @@ Next, we create the StoryBored specific tables in the database using [these quer
 
 
 ### Create a Cloud with Cloudinary
-<img src="http://res-1.cloudinary.com/cloudinary/image/asset/dpr_2.0/logo-e0df892053afd966cc0bfe047ba93ca4.png" height="40px">
 
 We use the Cloudinary cdn to store images that are linked to within articles.  This gives the writers access to all the image 
 transformations that Cloudinary offers, giving them even more control over the look of their articles. To start your own 
 development cloud [here](http://cloudinary.com/).
 
 ### Create a Mailgun Domain
-<img src="http://p5.zdassets.com/hc/settings_assets/218486/200001815/ztEAE5VPuxlrMg23XYd4dw-Mailgun_Secondary.png" height="40px">
 
 We use the Mailgun email service to send emails for registration and forgotten credentials. You can create your mailgun account and domain [here](http://www.mailgun.com/).
 
